@@ -1,0 +1,1613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>True/False Quiz | Take 5 minutes break!</title>
+    <style>
+        :root {
+            --navy: #12324f;
+            --navy-2: #1e466e;
+            --blue: #2c7da0;
+            --blue-dark: #1f6392;
+            --blue-soft: #edf6fb;
+            --teal: #1e6f5c;
+            --teal-soft: #e9f6f2;
+            --gold: #f4b942;
+            --bg: #f4f8fb;
+            --surface: #ffffff;
+            --ink: #1e2a3a;
+            --muted: #5b7180;
+            --border: #d7e4ee;
+            --correct: #177245;
+            --correct-bg: #e8f7ee;
+            --wrong: #b42318;
+            --wrong-bg: #fdecec;
+            --shadow: 0 18px 50px rgba(21, 63, 92, 0.10);
+            --radius: 22px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 8% 0%, rgba(44, 125, 160, 0.14), transparent 34%),
+                radial-gradient(circle at 100% 82%, rgba(30, 111, 92, 0.10), transparent 32%),
+                var(--bg);
+            color: var(--ink);
+            font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.55;
+        }
+
+        button {
+            font: inherit;
+        }
+
+        .shell {
+            width: min(920px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 34px 0 46px;
+        }
+
+        .top-nav {
+            display: flex;
+            justify-content: flex-start;
+            margin-bottom: 10px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 9px;
+            border-radius: 8px;
+            color: var(--blue-dark);
+            font-size: 0.78rem;
+            font-weight: 750;
+            text-decoration: none;
+        }
+
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.7);
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        .back-link:focus-visible {
+            outline: 3px solid rgba(44, 125, 160, 0.42);
+            outline-offset: 2px;
+        }
+
+        .hero {
+            text-align: center;
+            margin: 4px auto 24px;
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            color: var(--blue-dark);
+            font-size: 0.76rem;
+            font-weight: 800;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            margin: 0;
+            color: var(--navy);
+            font-size: clamp(2rem, 5vw, 3.25rem);
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+        }
+
+        .hero-copy {
+            margin: 14px auto 0;
+            max-width: 650px;
+            color: var(--muted);
+            font-size: clamp(0.98rem, 2vw, 1.08rem);
+        }
+
+        .source-pills {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 16px;
+        }
+
+        .source-pill {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 11px;
+            border: 1px solid #c7dfea;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
+            color: var(--blue-dark);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(199, 223, 234, 0.9);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: clamp(22px, 4.2vw, 42px);
+            scroll-margin-top: 18px;
+        }
+
+        .start-panel {
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .start-panel h2 {
+            margin: 0;
+            color: var(--navy);
+            font-size: clamp(1.35rem, 3vw, 1.9rem);
+            letter-spacing: -0.02em;
+        }
+
+        .start-copy {
+            margin: 12px 0 0;
+            color: var(--muted);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 26px 0;
+        }
+
+        .stat {
+            padding: 15px 12px;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            background: linear-gradient(180deg, #ffffff, #f7fbfd);
+            text-align: center;
+        }
+
+        .stat strong {
+            display: block;
+            color: var(--blue-dark);
+            font-size: 1.5rem;
+            line-height: 1.1;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 4px;
+            color: var(--muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .start-note {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin: 0 0 24px;
+            padding: 13px 15px;
+            border-radius: 13px;
+            background: #fff8e7;
+            border: 1px solid #f3dfae;
+            color: #6b5314;
+            font-size: 0.92rem;
+        }
+
+        .start-note strong {
+            color: #5a4510;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            min-height: 48px;
+            padding: 11px 22px;
+            border: 2px solid transparent;
+            border-radius: 13px;
+            cursor: pointer;
+            font-weight: 800;
+            letter-spacing: 0.01em;
+            text-decoration: none;
+            transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease, border-color 160ms ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn:focus-visible,
+        .answer-btn:focus-visible {
+            outline: 3px solid rgba(44, 125, 160, 0.42);
+            outline-offset: 3px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(180deg, #3388ac, var(--blue-dark));
+            color: #ffffff;
+            box-shadow: 0 10px 22px rgba(31, 99, 146, 0.24);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 13px 27px rgba(31, 99, 146, 0.30);
+        }
+
+        .btn-secondary {
+            background: #ffffff;
+            border-color: var(--border);
+            color: var(--navy-2);
+        }
+
+        .btn-secondary:hover {
+            border-color: #aacbdb;
+            background: #f8fcfe;
+        }
+
+        .start-action {
+            display: flex;
+            justify-content: center;
+        }
+
+        .quiz-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .topic-badge {
+            display: inline-flex;
+            align-items: center;
+            min-height: 31px;
+            padding: 5px 12px;
+            border-radius: 999px;
+            background: var(--blue-soft);
+            color: var(--blue-dark);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+        }
+
+        .topic-badge[data-topic="force"] {
+            background: var(--teal-soft);
+            color: var(--teal);
+        }
+
+        .progress-text {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .progress-track {
+            height: 8px;
+            overflow: hidden;
+            margin: 15px 0 28px;
+            border-radius: 999px;
+            background: #e4eef5;
+        }
+
+        .progress-fill {
+            display: block;
+            width: 5%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--blue), #45a7a0);
+            transition: width 260ms ease;
+        }
+
+        .question-card {
+            animation: question-in 260ms ease both;
+        }
+
+        @keyframes question-in {
+            from {
+                opacity: 0;
+                transform: translateY(7px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-label {
+            margin: 0 0 10px;
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.09em;
+            text-transform: uppercase;
+        }
+
+        .question-text {
+            margin: 0;
+            color: var(--navy);
+            font-size: clamp(1.24rem, 2.8vw, 1.68rem);
+            font-weight: 650;
+            letter-spacing: -0.015em;
+            line-height: 1.4;
+            text-wrap: pretty;
+        }
+
+        .question-text:focus,
+        .results-heading:focus,
+        .feedback:focus {
+            outline: none;
+        }
+
+        .answers {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 27px;
+        }
+
+        .answer-btn {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            min-height: 86px;
+            padding: 15px 17px;
+            border: 2px solid var(--border);
+            border-radius: 17px;
+            background: #ffffff;
+            color: var(--navy-2);
+            cursor: pointer;
+            text-align: left;
+            transition: transform 150ms ease, border-color 150ms ease, box-shadow 150ms ease, background 150ms ease, opacity 150ms ease;
+        }
+
+        .answer-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            border-color: #8ec2d8;
+            box-shadow: 0 9px 20px rgba(31, 99, 146, 0.10);
+        }
+
+        .answer-btn:disabled {
+            cursor: default;
+            opacity: 1;
+        }
+
+        .answer-key {
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 43px;
+            height: 43px;
+            border-radius: 11px;
+            background: var(--blue-soft);
+            color: var(--blue-dark);
+            font-size: 1.15rem;
+            font-weight: 900;
+        }
+
+        .answer-copy strong {
+            display: block;
+            font-size: 1.04rem;
+            line-height: 1.2;
+        }
+
+        .answer-copy small {
+            display: block;
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 0.76rem;
+        }
+
+        .answer-btn.correct {
+            border-color: var(--correct);
+            background: var(--correct-bg);
+            color: #0f5734;
+            box-shadow: 0 0 0 1px rgba(23, 114, 69, 0.10);
+        }
+
+        .answer-btn.correct .answer-key {
+            background: var(--correct);
+            color: #ffffff;
+        }
+
+        .answer-btn.wrong {
+            border-color: var(--wrong);
+            background: var(--wrong-bg);
+            color: #8e1c14;
+        }
+
+        .answer-btn.wrong .answer-key {
+            background: var(--wrong);
+            color: #ffffff;
+        }
+
+        .answer-btn.dimmed {
+            opacity: 0.48;
+        }
+
+        .feedback {
+            margin-top: 24px;
+            padding: 18px 19px;
+            border: 1px solid transparent;
+            border-left-width: 6px;
+            border-radius: 15px;
+            animation: feedback-in 220ms ease both;
+        }
+
+        .feedback.correct {
+            border-color: #bde5cb;
+            border-left-color: var(--correct);
+            background: var(--correct-bg);
+        }
+
+        .feedback.wrong {
+            border-color: #f3c7c4;
+            border-left-color: var(--wrong);
+            background: var(--wrong-bg);
+        }
+
+        @keyframes feedback-in {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feedback-head {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .feedback-icon {
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            font-size: 1.05rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .feedback.correct .feedback-icon {
+            background: var(--correct);
+            color: #ffffff;
+        }
+
+        .feedback.wrong .feedback-icon {
+            background: var(--wrong);
+            color: #ffffff;
+        }
+
+        .feedback-verdict {
+            margin: 0 0 1px;
+            font-size: 0.76rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .feedback.correct .feedback-verdict {
+            color: var(--correct);
+        }
+
+        .feedback.wrong .feedback-verdict {
+            color: var(--wrong);
+        }
+
+        .feedback h3 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 1rem;
+        }
+
+        .feedback-explanation {
+            margin: 13px 0 0;
+            color: #344b5c;
+            font-size: 0.95rem;
+        }
+
+        .source-tag {
+            margin: 11px 0 0;
+            color: var(--muted);
+            font-size: 0.78rem;
+            font-weight: 650;
+        }
+
+        .quiz-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 21px;
+        }
+
+        .keyboard-hint {
+            margin: 20px 0 0;
+            color: #7b8f9b;
+            font-size: 0.76rem;
+            text-align: center;
+        }
+
+        kbd {
+            display: inline-block;
+            min-width: 1.5em;
+            padding: 1px 5px;
+            border: 1px solid #cfdde6;
+            border-bottom-width: 2px;
+            border-radius: 5px;
+            background: #ffffff;
+            color: #4b6474;
+            font-family: inherit;
+            font-size: 0.72rem;
+            font-weight: 700;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        .results-panel {
+            max-width: 820px;
+            margin: 0 auto;
+        }
+
+        .score-hero {
+            display: flex;
+            align-items: center;
+            gap: clamp(22px, 5vw, 42px);
+        }
+
+        .score-ring {
+            --pct: 0;
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 154px;
+            height: 154px;
+            border-radius: 50%;
+            background: conic-gradient(var(--blue) calc(var(--pct) * 1%), #e2edf5 0);
+            box-shadow: inset 0 0 0 1px rgba(44, 125, 160, 0.08);
+        }
+
+        .score-ring-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: calc(100% - 20px);
+            height: calc(100% - 20px);
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 2px 10px rgba(21, 63, 92, 0.08);
+        }
+
+        .score-number {
+            color: var(--navy);
+            font-size: 2.35rem;
+            font-weight: 850;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .score-denom {
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        .score-copy {
+            min-width: 0;
+        }
+
+        .score-copy .eyebrow {
+            margin-bottom: 5px;
+        }
+
+        .results-heading {
+            margin: 0;
+            color: var(--navy);
+            font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+            letter-spacing: -0.025em;
+            line-height: 1.15;
+        }
+
+        .score-percent {
+            display: inline-block;
+            margin: 10px 0 0;
+            padding: 4px 10px;
+            border-radius: 999px;
+            background: var(--blue-soft);
+            color: var(--blue-dark);
+            font-size: 0.8rem;
+            font-weight: 800;
+        }
+
+        .results-message {
+            margin: 10px 0 0;
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        .topic-results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 13px;
+            margin-top: 28px;
+        }
+
+        .topic-results.single-topic {
+            grid-template-columns: 1fr;
+        }
+
+        .topic-result {
+            padding: 16px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: #fbfdff;
+        }
+
+        .topic-result-top {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 9px;
+        }
+
+        .topic-result-top span {
+            color: var(--muted);
+            font-size: 0.82rem;
+            font-weight: 700;
+        }
+
+        .topic-result-top strong {
+            color: var(--navy-2);
+            font-size: 1.02rem;
+        }
+
+        .mini-track {
+            height: 6px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #e2edf5;
+        }
+
+        .mini-track span {
+            display: block;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--blue), #45a7a0);
+        }
+
+        .review-section {
+            margin-top: 30px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        .review-header h3 {
+            margin: 0;
+            color: var(--navy);
+            font-size: 1.08rem;
+        }
+
+        .review-header p {
+            margin: 4px 0 0;
+            color: var(--muted);
+            font-size: 0.83rem;
+        }
+
+        .review-list {
+            display: grid;
+            gap: 11px;
+            margin-top: 15px;
+        }
+
+        .review-item {
+            padding: 15px 16px;
+            border: 1px solid #f0cfcc;
+            border-left: 4px solid var(--wrong);
+            border-radius: 12px;
+            background: #fffafa;
+        }
+
+        .review-item h4 {
+            margin: 0;
+            color: var(--ink);
+            font-size: 0.91rem;
+            line-height: 1.45;
+        }
+
+        .review-answer {
+            margin: 7px 0 0;
+            color: #8e1c14;
+            font-size: 0.78rem;
+            font-weight: 800;
+        }
+
+        .review-explanation {
+            margin: 7px 0 0;
+            color: #405667;
+            font-size: 0.84rem;
+        }
+
+        .review-item .source-tag {
+            margin-top: 7px;
+        }
+
+        .perfect-state {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-top: 15px;
+            padding: 18px;
+            border: 1px solid #bde5cb;
+            border-radius: 14px;
+            background: var(--correct-bg);
+        }
+
+        .perfect-state .perfect-icon {
+            display: grid;
+            flex: 0 0 auto;
+            place-items: center;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--correct);
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: 900;
+        }
+
+        .perfect-state strong {
+            display: block;
+            color: #0f5734;
+        }
+
+        .perfect-state p {
+            margin: 2px 0 0;
+            color: #326b4f;
+            font-size: 0.86rem;
+        }
+
+        .results-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 25px;
+        }
+
+        .site-footer {
+            margin-top: 24px;
+            color: #748995;
+            font-size: 0.75rem;
+            text-align: center;
+        }
+
+        .site-footer a {
+            color: var(--blue-dark);
+            font-weight: 700;
+            text-decoration: none;
+            text-underline-offset: 2px;
+        }
+
+        .site-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 650px) {
+            .shell {
+                width: min(100% - 22px, 920px);
+                padding-top: 24px;
+            }
+
+            .hero {
+                margin-bottom: 18px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 12px 14px;
+                text-align: left;
+            }
+
+            .stat span {
+                margin-top: 0;
+            }
+
+            .answers {
+                grid-template-columns: 1fr;
+            }
+
+            .answer-btn {
+                min-height: 74px;
+            }
+
+            .score-hero {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .score-ring {
+                width: 136px;
+                height: 136px;
+            }
+
+            .topic-results {
+                grid-template-columns: 1fr;
+            }
+
+            .feedback {
+                padding: 16px;
+            }
+
+            .quiz-actions,
+            .results-actions {
+                justify-content: stretch;
+            }
+
+            .quiz-actions .btn,
+            .results-actions .btn {
+                width: 100%;
+            }
+
+            .results-actions {
+                flex-direction: column;
+            }
+
+            .keyboard-hint {
+                display: none;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.001ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.001ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <nav class="top-nav" aria-label="Site navigation">
+            <a class="back-link" href="index.html"><span aria-hidden="true">&larr;</span> All topics</a>
+        </nav>
+
+        <header class="hero">
+            <p class="eyebrow" id="hero-eyebrow">HKDSE Physics &middot; Kinematics</p>
+            <h1>True or False?</h1>
+            <p class="hero-copy" id="hero-copy">
+                Ten misconception-focused statements on kinematics. Answer one at a time and use
+                the feedback to sharpen your understanding.
+            </p>
+            <div class="source-pills" aria-label="Topic covered">
+                <span class="source-pill" id="hero-pill">Kinematics</span>
+            </div>
+        </header>
+
+        <main>
+            <section id="start-screen" class="panel start-panel" aria-labelledby="start-heading">
+                <h2 id="start-heading">Kinematics Challenge</h2>
+                <p class="start-copy" id="start-copy">
+                    Each question targets a definition, graph interpretation, or common exam mistake.
+                    You will see the correct answer and a short explanation immediately after choosing.
+                </p>
+
+                <div class="stat-grid" aria-label="Quiz details">
+                    <div class="stat">
+                        <strong id="stat-questions">10</strong>
+                        <span>questions</span>
+                    </div>
+                    <div class="stat">
+                        <strong id="stat-topic">1</strong>
+                        <span>topic</span>
+                    </div>
+                    <div class="stat">
+                        <strong id="stat-format">5 + 5</strong>
+                        <span>true / false</span>
+                    </div>
+                </div>
+
+                <p class="start-note">
+                    <span aria-hidden="true">&#128161;</span>
+                    <span><strong>Tip:</strong> Read each statement carefully. Some look true until one key word changes the physics.</span>
+                </p>
+
+                <div class="start-action">
+                    <button type="button" class="btn btn-primary" id="start-btn">Start Kinematics quiz &rarr;</button>
+                </div>
+            </section>
+
+            <section id="quiz-screen" class="panel quiz-panel" aria-labelledby="question-text" hidden>
+                <div class="quiz-top">
+                    <span class="topic-badge" id="topic-badge">Kinematics</span>
+                    <span class="progress-text" id="progress-text">Question 1 of 10</span>
+                </div>
+
+                <div class="progress-track" id="progress-track" role="progressbar" aria-label="Quiz progress" aria-valuemin="1" aria-valuemax="10" aria-valuenow="1">
+                    <span class="progress-fill" id="progress-fill"></span>
+                </div>
+
+                <div class="question-card">
+                    <p class="question-label">Decide whether the statement is true or false</p>
+                    <h2 class="question-text" id="question-text" tabindex="-1"></h2>
+
+                    <div class="answers" role="group" aria-label="Answer choices">
+                        <button type="button" class="answer-btn" data-answer="true">
+                            <span class="answer-key" aria-hidden="true">T</span>
+                            <span class="answer-copy">
+                                <strong>True</strong>
+                                <small>The statement is correct</small>
+                            </span>
+                        </button>
+                        <button type="button" class="answer-btn" data-answer="false">
+                            <span class="answer-key" aria-hidden="true">F</span>
+                            <span class="answer-copy">
+                                <strong>False</strong>
+                                <small>The statement is incorrect</small>
+                            </span>
+                        </button>
+                    </div>
+
+                    <div class="feedback" id="feedback" tabindex="-1" aria-live="polite" aria-atomic="true" hidden>
+                        <div class="feedback-head">
+                            <span class="feedback-icon" id="feedback-icon" aria-hidden="true"></span>
+                            <div>
+                                <p class="feedback-verdict" id="feedback-verdict"></p>
+                                <h3 id="feedback-title"></h3>
+                            </div>
+                        </div>
+                        <p class="feedback-explanation" id="feedback-explanation"></p>
+                        <p class="source-tag" id="feedback-source"></p>
+                    </div>
+
+                    <div class="quiz-actions">
+                        <button type="button" class="btn btn-primary" id="next-btn" hidden>Next question &rarr;</button>
+                    </div>
+                </div>
+
+                <p class="keyboard-hint">
+                    Keyboard: <kbd>1</kbd> / <kbd>T</kbd> for True &middot; <kbd>2</kbd> / <kbd>F</kbd> for False &middot; <kbd>Enter</kbd> for Next
+                </p>
+            </section>
+
+            <section id="results-screen" class="panel results-panel" aria-labelledby="results-heading" hidden>
+                <div class="score-hero">
+                    <div class="score-ring" id="score-ring" aria-hidden="true">
+                        <div class="score-ring-inner">
+                            <span class="score-number" id="score-number">0</span>
+                            <span class="score-denom" id="score-denom">out of 10</span>
+                        </div>
+                    </div>
+                    <div class="score-copy">
+                        <p class="eyebrow">Quiz complete</p>
+                        <h2 class="results-heading" id="results-heading" tabindex="-1">Results</h2>
+                        <p class="score-percent" id="score-percent">0%</p>
+                        <p class="results-message" id="results-message"></p>
+                    </div>
+                </div>
+
+                <div class="topic-results single-topic" id="topic-results" aria-label="Score by topic"></div>
+
+                <section class="review-section" aria-labelledby="review-heading">
+                    <div class="review-header">
+                        <h3 id="review-heading">Review your misses</h3>
+                        <p id="review-description">Revisit the statements you answered incorrectly, then try the quiz again.</p>
+                    </div>
+                    <div class="review-list" id="review-list"></div>
+                </section>
+
+                <div class="results-actions">
+                    <a class="btn btn-secondary" href="index.html">All topics</a>
+                    <button type="button" class="btn btn-primary" id="retry-btn">Try again</button>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer">
+            <a href="index.html">All topics</a> &middot;
+            Content based on the <a id="summary-link" href="RS_HKDSE_M_Kinematics.html">Kinematics</a> revision summary.
+        </footer>
+    </div>
+
+    <script>
+        const QUESTION_BANK = {
+            kinematics: [
+            {
+                id: "K1",
+                topic: "kinematics",
+                statement: "Distance is a vector quantity because it has direction.",
+                answer: false,
+                explanation: "Distance is a scalar: it is the total path length. Displacement is the vector quantity because it has both magnitude and direction.",
+                source: "Kinematics \u00a71"
+            },
+            {
+                id: "K2",
+                topic: "kinematics",
+                statement: "A runner who completes one full lap and stops at the starting point has an average velocity of zero for the lap.",
+                answer: true,
+                explanation: "The runner's net displacement is zero, so average velocity = displacement / time = 0. The average speed is not zero because the runner covered the whole track.",
+                source: "Kinematics \u00a72"
+            },
+            {
+                id: "K3",
+                topic: "kinematics",
+                statement: "The slope of a displacement-time graph gives velocity.",
+                answer: true,
+                explanation: "Slope = velocity. For a curved displacement-time graph, the tangent's slope gives the instantaneous velocity.",
+                source: "Kinematics \u00a73.1"
+            },
+            {
+                id: "K4",
+                topic: "kinematics",
+                statement: "The area under a velocity-time graph gives acceleration.",
+                answer: false,
+                explanation: "The area under a velocity-time graph gives displacement, while the slope gives acceleration. Signed area gives net displacement; total area gives distance.",
+                source: "Kinematics \u00a73.2"
+            },
+            {
+                id: "K5",
+                topic: "kinematics",
+                statement: "If two velocity-time graphs cross, the two objects must be at the same position at that instant.",
+                answer: false,
+                explanation: "Crossing velocity-time graphs mean the objects have the same velocity at that instant. It does not tell us that their positions are equal.",
+                source: "Kinematics \u00a73.2"
+            },
+            {
+                id: "K6",
+                topic: "kinematics",
+                statement: "At the highest point of a ball thrown vertically upward, both velocity and acceleration are zero.",
+                answer: false,
+                explanation: "Velocity is momentarily zero at the top, but acceleration is still 9.81 m s\u207b\u00b2 downward. Gravity does not switch off at the highest point.",
+                source: "Kinematics \u00a75"
+            },
+            {
+                id: "K7",
+                topic: "kinematics",
+                statement: "For an object released from rest and falling freely, the distances travelled in successive equal time intervals follow the ratio 1:3:5:7\u2026",
+                answer: true,
+                explanation: "This is the standard pattern for uniform acceleration from rest. It is a useful check when analysing ticker-tape or light-gate data.",
+                source: "Kinematics \u00a78"
+            },
+            {
+                id: "K8",
+                topic: "kinematics",
+                statement: "The suvat equations can be used even when acceleration is changing.",
+                answer: false,
+                explanation: "The suvat equations require constant acceleration. If acceleration changes, use graph methods or split the motion into intervals with different constant accelerations.",
+                source: "Kinematics \u00a74"
+            },
+            {
+                id: "K9",
+                topic: "kinematics",
+                statement: "An object with uniform acceleration has a straight-line velocity-time graph.",
+                answer: true,
+                explanation: "Uniform acceleration means the velocity-time slope is constant, so the graph is a straight line.",
+                source: "Kinematics \u00a73.2"
+            },
+            {
+                id: "K10",
+                topic: "kinematics",
+                statement: "A negative acceleration does not necessarily mean that the object is slowing down.",
+                answer: true,
+                explanation: "A negative acceleration simply points in the negative direction. If velocity is also negative, the object speeds up; if velocity is positive, it slows down.",
+                source: "Kinematics \u00a74 and \u00a710"
+            }
+            ],
+            force: [
+            {
+                id: "F1",
+                topic: "force",
+                statement: "Mass is a scalar measured in kilograms, while weight is a vector measured in newtons.",
+                answer: true,
+                explanation: "Mass measures inertia and stays the same everywhere. Weight is the gravitational force W = mg and changes when g changes.",
+                source: "Force and Motion \u00a71"
+            },
+            {
+                id: "F2",
+                topic: "force",
+                statement: "If the net force on an object is zero, the object must be at rest.",
+                answer: false,
+                explanation: "Zero net force means zero acceleration. The object could be at rest or moving with constant velocity.",
+                source: "Force and Motion \u00a73.1"
+            },
+            {
+                id: "F3",
+                topic: "force",
+                statement: "Action-reaction forces are equal and opposite, so they cancel each other out.",
+                answer: false,
+                explanation: "Action and reaction forces act on different objects. Because they do not act on the same object, they cannot cancel each other out.",
+                source: "Force and Motion \u00a73.3"
+            },
+            {
+                id: "F4",
+                topic: "force",
+                statement: "A book's weight and the normal force from the table on the book are an action-reaction pair.",
+                answer: false,
+                explanation: "Both forces act on the book, so they can balance but are not a third-law pair. The action-reaction pair is: the book pushes the table down, and the table pushes the book up.",
+                source: "Force and Motion \u00a73.3"
+            },
+            {
+                id: "F5",
+                topic: "force",
+                statement: "A free-body diagram should include only forces acting directly on the chosen object.",
+                answer: true,
+                explanation: "Include only forces acting on the object, not forces the object exerts on other things. If known, indicate the velocity direction beside the diagram to guide your sign convention.",
+                source: "Force and Motion \u00a72"
+            },
+            {
+                id: "F6",
+                topic: "force",
+                statement: "In a lift accelerating upward, the floor's normal force on a passenger is greater than the passenger's weight.",
+                answer: true,
+                explanation: "For upward acceleration: R - mg = ma, so R = m(g + a). The normal force is therefore greater than mg.",
+                source: "Force and Motion \u00a75.2"
+            },
+            {
+                id: "F7",
+                topic: "force",
+                statement: "On a smooth incline at angle \u03b8, the weight component parallel to the plane is mg cos \u03b8.",
+                answer: false,
+                explanation: "The component along the plane is mg sin \u03b8. The normal reaction is mg cos \u03b8.",
+                source: "Force and Motion \u00a76"
+            },
+            {
+                id: "F8",
+                topic: "force",
+                statement: "Friction always acts opposite to the direction of motion.",
+                answer: false,
+                explanation: "Friction opposes relative motion or the tendency of relative motion. Static friction can act in the direction of motion, such as the friction that lets you walk forward.",
+                source: "Force and Motion \u00a710"
+            },
+            {
+                id: "F9",
+                topic: "force",
+                statement: "A car towed at constant velocity has zero net force, so the towing force equals the total resistive force.",
+                answer: true,
+                explanation: "Constant velocity means a = 0. Therefore the net force is zero, so the towing force balances the total resistive force.",
+                source: "Force and Motion \u00a75.1"
+            },
+            {
+                id: "F10",
+                topic: "force",
+                statement: "For a fixed net force, doubling the mass halves the acceleration.",
+                answer: true,
+                explanation: "Since a = F / m, acceleration is inversely proportional to mass when the net force is fixed. Doubling m halves a.",
+                source: "Force and Motion \u00a73.2 and \u00a79"
+            }
+            ]
+        };
+
+        const TOPICS = {
+            kinematics: {
+                label: "Kinematics",
+                eyebrow: "HKDSE Physics \u00b7 Kinematics",
+                summaryLabel: "Kinematics",
+                summaryPath: "RS_HKDSE_M_Kinematics.html",
+                intro: "Ten misconception-focused statements on kinematics. Answer one at a time and use the feedback to sharpen your understanding.",
+                startCopy: "Each question targets a definition, graph interpretation, or common exam mistake in kinematics. You will see the correct answer and a short explanation immediately after choosing."
+            },
+            force: {
+                label: "Force and Motion",
+                eyebrow: "HKDSE Physics \u00b7 Force and Motion",
+                summaryLabel: "Force and Motion",
+                summaryPath: "RS_HKDSE_M_Force%20and%20Motion.html",
+                intro: "Ten misconception-focused statements on forces and Newton's laws. Answer one at a time and use the feedback to sharpen your understanding.",
+                startCopy: "Each question targets a definition, free-body diagram, or common exam mistake in force and motion. You will see the correct answer and a short explanation immediately after choosing."
+            }
+        };
+
+        const requestedTopic = new URLSearchParams(window.location.search).get("topic");
+        const activeTopic = Object.prototype.hasOwnProperty.call(TOPICS, requestedTopic)
+            ? requestedTopic
+            : "kinematics";
+        const ACTIVE_TOPIC = TOPICS[activeTopic];
+        const QUESTIONS = QUESTION_BANK[activeTopic];
+
+        const state = {
+            screen: "start",
+            index: 0,
+            answers: [],
+            selected: null,
+            answered: false
+        };
+
+        const els = {
+            startScreen: document.getElementById("start-screen"),
+            quizScreen: document.getElementById("quiz-screen"),
+            resultsScreen: document.getElementById("results-screen"),
+            startBtn: document.getElementById("start-btn"),
+            heroEyebrow: document.getElementById("hero-eyebrow"),
+            heroCopy: document.getElementById("hero-copy"),
+            heroPill: document.getElementById("hero-pill"),
+            startHeading: document.getElementById("start-heading"),
+            startCopy: document.getElementById("start-copy"),
+            statQuestions: document.getElementById("stat-questions"),
+            statTopic: document.getElementById("stat-topic"),
+            statFormat: document.getElementById("stat-format"),
+            summaryLink: document.getElementById("summary-link"),
+            topicBadge: document.getElementById("topic-badge"),
+            progressText: document.getElementById("progress-text"),
+            progressTrack: document.getElementById("progress-track"),
+            progressFill: document.getElementById("progress-fill"),
+            questionText: document.getElementById("question-text"),
+            answerButtons: Array.from(document.querySelectorAll(".answer-btn")),
+            feedback: document.getElementById("feedback"),
+            feedbackIcon: document.getElementById("feedback-icon"),
+            feedbackVerdict: document.getElementById("feedback-verdict"),
+            feedbackTitle: document.getElementById("feedback-title"),
+            feedbackExplanation: document.getElementById("feedback-explanation"),
+            feedbackSource: document.getElementById("feedback-source"),
+            nextBtn: document.getElementById("next-btn"),
+            scoreRing: document.getElementById("score-ring"),
+            scoreNumber: document.getElementById("score-number"),
+            scoreDenom: document.getElementById("score-denom"),
+            scorePercent: document.getElementById("score-percent"),
+            resultsHeading: document.getElementById("results-heading"),
+            resultsMessage: document.getElementById("results-message"),
+            topicResults: document.getElementById("topic-results"),
+            reviewHeading: document.getElementById("review-heading"),
+            reviewDescription: document.getElementById("review-description"),
+            reviewList: document.getElementById("review-list"),
+            retryBtn: document.getElementById("retry-btn")
+        };
+
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+        function applyTopicUI() {
+            const trueCount = QUESTIONS.filter((question) => question.answer).length;
+            const falseCount = QUESTIONS.length - trueCount;
+
+            document.title = ACTIVE_TOPIC.label + " True/False Quiz | Take 5 minutes break!";
+            els.heroEyebrow.textContent = ACTIVE_TOPIC.eyebrow;
+            els.heroCopy.textContent = ACTIVE_TOPIC.intro;
+            els.heroPill.textContent = ACTIVE_TOPIC.label;
+            els.startHeading.textContent = ACTIVE_TOPIC.label + " Challenge";
+            els.startCopy.textContent = ACTIVE_TOPIC.startCopy;
+            els.statQuestions.textContent = String(QUESTIONS.length);
+            els.statTopic.textContent = "1";
+            els.statFormat.textContent = trueCount + " + " + falseCount;
+            els.startBtn.textContent = "Start " + ACTIVE_TOPIC.label + " quiz \u2192";
+            els.summaryLink.textContent = ACTIVE_TOPIC.summaryLabel;
+            els.summaryLink.href = ACTIVE_TOPIC.summaryPath;
+            els.topicBadge.textContent = ACTIVE_TOPIC.label;
+            els.topicBadge.dataset.topic = activeTopic;
+            els.progressTrack.setAttribute("aria-valuemax", String(QUESTIONS.length));
+        }
+
+        function showScreen(screen) {
+            state.screen = screen;
+            els.startScreen.hidden = screen !== "start";
+            els.quizScreen.hidden = screen !== "quiz";
+            els.resultsScreen.hidden = screen !== "results";
+
+            const activeScreen = screen === "quiz"
+                ? els.quizScreen
+                : screen === "results"
+                    ? els.resultsScreen
+                    : els.startScreen;
+
+            const behavior = reduceMotion.matches ? "auto" : "smooth";
+
+            if (typeof activeScreen.scrollIntoView === "function") {
+                activeScreen.scrollIntoView({ behavior: behavior, block: "start" });
+            } else {
+                window.scrollTo({ top: 0, behavior: behavior });
+            }
+        }
+
+        function resetAnswerButtons() {
+            els.answerButtons.forEach((button) => {
+                button.disabled = false;
+                button.classList.remove("correct", "wrong", "dimmed");
+                button.setAttribute("aria-pressed", "false");
+            });
+        }
+
+        function renderQuestion() {
+            const question = QUESTIONS[state.index];
+            state.selected = null;
+            state.answered = false;
+
+            els.topicBadge.textContent = TOPICS[question.topic].label;
+            els.topicBadge.dataset.topic = question.topic;
+            els.progressText.textContent = "Question " + (state.index + 1) + " of " + QUESTIONS.length;
+            els.progressTrack.setAttribute("aria-valuemax", String(QUESTIONS.length));
+            els.progressTrack.setAttribute("aria-valuenow", String(state.index + 1));
+            els.progressFill.style.width = (((state.index + 1) / QUESTIONS.length) * 100) + "%";
+            els.questionText.textContent = question.statement;
+
+            resetAnswerButtons();
+
+            els.feedback.hidden = true;
+            els.feedback.classList.remove("correct", "wrong");
+            els.nextBtn.hidden = true;
+            els.nextBtn.textContent = state.index === QUESTIONS.length - 1
+                ? "See results \u2192"
+                : "Next question \u2192";
+
+            showScreen("quiz");
+            els.questionText.focus({ preventScroll: true });
+        }
+
+        function chooseAnswer(selected) {
+            if (state.answered) {
+                return;
+            }
+
+            const question = QUESTIONS[state.index];
+            const isCorrect = selected === question.answer;
+
+            state.answered = true;
+            state.selected = selected;
+            state.answers.push({
+                question: question,
+                selected: selected,
+                correct: isCorrect
+            });
+
+            els.answerButtons.forEach((button) => {
+                const buttonValue = button.dataset.answer === "true";
+                button.disabled = true;
+                button.setAttribute("aria-pressed", buttonValue === selected ? "true" : "false");
+                button.classList.remove("correct", "wrong", "dimmed");
+
+                if (buttonValue === question.answer) {
+                    button.classList.add("correct");
+                } else if (buttonValue === selected) {
+                    button.classList.add("wrong");
+                } else {
+                    button.classList.add("dimmed");
+                }
+            });
+
+            els.feedback.classList.remove("correct", "wrong");
+            els.feedback.classList.add(isCorrect ? "correct" : "wrong");
+            els.feedbackIcon.textContent = isCorrect ? "\u2713" : "\u00d7";
+            els.feedbackVerdict.textContent = isCorrect ? "Correct" : "Not quite";
+            els.feedbackTitle.textContent = "Correct answer: " + (question.answer ? "True" : "False");
+            els.feedbackExplanation.textContent = question.explanation;
+            els.feedbackSource.textContent = "Source: " + question.source;
+            els.feedback.hidden = false;
+            els.nextBtn.hidden = false;
+            els.feedback.focus({ preventScroll: true });
+        }
+
+        function nextQuestion() {
+            if (!state.answered) {
+                return;
+            }
+
+            if (state.index < QUESTIONS.length - 1) {
+                state.index += 1;
+                renderQuestion();
+            } else {
+                renderResults();
+            }
+        }
+
+        function getResults() {
+            const total = QUESTIONS.length;
+            const score = state.answers.filter((answer) => answer.correct).length;
+            const percent = Math.round((score / total) * 100);
+            const topicScores = {
+                [activeTopic]: {
+                    score: score,
+                    total: total
+                }
+            };
+
+            return { total, score, percent, topicScores };
+        }
+
+        function getResultsMessage(percent) {
+            if (percent === 100) {
+                return "Perfect score. You identified every misconception correctly.";
+            }
+            if (percent >= 85) {
+                return "Excellent work. Review any missed statement to lock in the detail.";
+            }
+            if (percent >= 70) {
+                return "Strong understanding. The review below highlights the ideas worth revisiting.";
+            }
+            if (percent >= 50) {
+                return "A solid start. Use the explanations to connect each correction to the underlying physics.";
+            }
+            return "Keep building. Read each explanation carefully, then try the quiz again.";
+        }
+
+        function renderTopicResults(topicScores) {
+            els.topicResults.replaceChildren();
+
+            Object.entries(topicScores).forEach(([topicKey, result]) => {
+                const meta = TOPICS[topicKey];
+                const card = document.createElement("article");
+                card.className = "topic-result";
+
+                const top = document.createElement("div");
+                top.className = "topic-result-top";
+
+                const name = document.createElement("span");
+                name.textContent = meta.label;
+
+                const score = document.createElement("strong");
+                score.textContent = result.score + "/" + result.total;
+
+                const track = document.createElement("div");
+                track.className = "mini-track";
+                track.setAttribute("aria-hidden", "true");
+
+                const fill = document.createElement("span");
+                fill.style.width = ((result.score / result.total) * 100) + "%";
+
+                top.append(name, score);
+                track.append(fill);
+                card.append(top, track);
+                els.topicResults.append(card);
+            });
+        }
+
+        function renderReview() {
+            const missed = state.answers.filter((answer) => !answer.correct);
+            els.reviewList.replaceChildren();
+
+            if (missed.length === 0) {
+                els.reviewHeading.textContent = "All correct";
+                els.reviewDescription.textContent = "There are no missed statements to review. Try again to confirm your understanding.";
+                const perfect = document.createElement("div");
+                perfect.className = "perfect-state";
+
+                const icon = document.createElement("span");
+                icon.className = "perfect-icon";
+                icon.setAttribute("aria-hidden", "true");
+                icon.textContent = "\u2713";
+
+                const copy = document.createElement("div");
+                const title = document.createElement("strong");
+                title.textContent = "No missed questions";
+                const detail = document.createElement("p");
+                detail.textContent = "You answered all " + QUESTIONS.length + " statements correctly. Try again to confirm your understanding.";
+
+                copy.append(title, detail);
+                perfect.append(icon, copy);
+                els.reviewList.append(perfect);
+                return;
+            }
+
+            els.reviewHeading.textContent = "Review your misses (" + missed.length + ")";
+            els.reviewDescription.textContent = "Revisit the statements you answered incorrectly, then try the quiz again.";
+
+            missed.forEach((answer) => {
+                const item = document.createElement("article");
+                item.className = "review-item";
+
+                const statement = document.createElement("h4");
+                statement.textContent = answer.question.id + ": " + answer.question.statement;
+
+                const answerLine = document.createElement("p");
+                answerLine.className = "review-answer";
+                answerLine.textContent = "Your answer: " + (answer.selected ? "True" : "False") +
+                    " \u00b7 Correct: " + (answer.question.answer ? "True" : "False");
+
+                const explanation = document.createElement("p");
+                explanation.className = "review-explanation";
+                explanation.textContent = answer.question.explanation;
+
+                const source = document.createElement("p");
+                source.className = "source-tag";
+                source.textContent = "Source: " + answer.question.source;
+
+                item.append(statement, answerLine, explanation, source);
+                els.reviewList.append(item);
+            });
+        }
+
+        function renderResults() {
+            const results = getResults();
+
+            els.scoreRing.style.setProperty("--pct", String(results.percent));
+            els.scoreNumber.textContent = String(results.score);
+            els.scoreDenom.textContent = "out of " + results.total;
+            els.scorePercent.textContent = results.percent + "%";
+            els.resultsHeading.textContent = results.percent >= 85
+                ? "Excellent work."
+                : results.percent >= 70
+                    ? "Strong understanding."
+                    : results.percent >= 50
+                        ? "A solid start."
+                        : "Keep building.";
+            els.resultsMessage.textContent = "You scored " + results.score + " out of " + results.total +
+                ". " + getResultsMessage(results.percent);
+
+            renderTopicResults(results.topicScores);
+            renderReview();
+            showScreen("results");
+
+            requestAnimationFrame(() => {
+                els.resultsHeading.focus({ preventScroll: true });
+            });
+        }
+
+        function startQuiz() {
+            state.index = 0;
+            state.answers = [];
+            state.selected = null;
+            state.answered = false;
+            renderQuestion();
+        }
+
+        applyTopicUI();
+
+        els.startBtn.addEventListener("click", startQuiz);
+        els.retryBtn.addEventListener("click", startQuiz);
+        els.nextBtn.addEventListener("click", nextQuestion);
+
+        els.answerButtons.forEach((button) => {
+            button.addEventListener("click", () => {
+                chooseAnswer(button.dataset.answer === "true");
+            });
+        });
+
+        document.addEventListener("keydown", (event) => {
+            if (state.screen !== "quiz" || event.metaKey || event.ctrlKey || event.altKey) {
+                return;
+            }
+
+            const key = event.key.toLowerCase();
+
+            if (!state.answered && (key === "1" || key === "t")) {
+                event.preventDefault();
+                chooseAnswer(true);
+                return;
+            }
+
+            if (!state.answered && (key === "2" || key === "f")) {
+                event.preventDefault();
+                chooseAnswer(false);
+                return;
+            }
+
+            if (state.answered && key === "enter" && document.activeElement !== els.nextBtn) {
+                event.preventDefault();
+                nextQuestion();
+            }
+        });
+    </script>
+</body>
+</html>

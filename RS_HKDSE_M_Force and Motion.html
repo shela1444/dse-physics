@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKDSE Physics - Newton's Laws of Motion Revision</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            margin: 2cm;
+            color: #1e2a3a;
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #1e466e;
+            border-bottom: 3px solid #2c7da0;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #1f6392;
+            border-left: 5px solid #2c7da0;
+            padding-left: 12px;
+            margin: 25px 0 15px 0;
+            background: #f0f7fc;
+            border-radius: 0 8px 8px 0;
+        }
+        h3 {
+            color: #1e6f5c;
+            margin: 18px 0 10px 0;
+            border-bottom: 1px dashed #9bc2d4;
+            padding-bottom: 4px;
+        }
+        .equation-box {
+            background-color: #eef4ff;
+            border: 2px solid #2c7da0;
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 12pt;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .equation {
+            font-family: 'Courier New', 'Times New Roman', monospace;
+            font-weight: 600;
+            font-size: 13pt;
+            color: #004070;
+        }
+        .key-point {
+            background-color: #fff8e7;
+            border-left: 4px solid #f4b942;
+            padding: 10px 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        .exam-tip {
+            background-color: #e0f7e8;
+            border-left: 4px solid #2e7d64;
+            padding: 10px 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        .warning {
+            background-color: #ffe6e5;
+            border-left: 4px solid #c7362b;
+            padding: 10px 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 10.5pt;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #bdd3e6;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #2c7da0;
+            color: white;
+            font-weight: 600;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .color-section {
+            background-color: #eef4fa;
+            border-radius: 14px;
+            padding: 12px 18px;
+            margin: 20px 0;
+            border: 1px solid #bbd4e9;
+        }
+        .formula-card {
+            background: #f9fafc;
+            border-radius: 12px;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 5px solid #2c7da0;
+        }
+        @media print {
+            body { margin: 1.2cm; }
+            .page-break { page-break-before: always; }
+        }
+        footer {
+            text-align: center;
+            font-size: 9pt;
+            color: #5e7e8c;
+            margin-top: 30px;
+            border-top: 1px solid #cbdbe2;
+            padding-top: 12px;
+        }
+        .badge {
+            background-color: #1f6392;
+            color: white;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 9pt;
+            display: inline-block;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>⚖️ Newton's Laws of Motion – Mechanics Revision</h1>
+<p style="text-align: center;"><strong>HKDSE Physics (Compulsory Part)</strong><br>
+Based on syllabus & past paper trends (1990–2023) | Free-body diagrams, F = ma, connected bodies, inclined planes</p>
+<hr>
+
+<h2>📌 1. Key Concepts: Force, Mass & Weight</h2>
+<div class="key-point">
+    <strong>Mass (kg):</strong> measure of inertia, scalar, constant everywhere.<br>
+    <strong>Weight (N):</strong> gravitational force on an object, <strong>W = mg</strong>, vector, varies with g.<br>
+    <em>On Earth, g ≈ 9.81 m/s²; on Moon, g ≈ 1/6 of Earth's.</em>
+</div>
+<div class="exam-tip">
+    ✅ Past paper classic: "An object weighs 120 N on Earth. On Moon (g = 1/6 g<sub>E</sub>), mass = 120/9.81 ≈ 12.2 kg, weight = 20 N." (e.g. 2009 CE Q8)
+</div>
+
+<hr>
+
+<h2>📐 2. Free‑Body Diagrams (FBD) – Essential Rules</h2>
+<div class="color-section">
+    <p><strong>What is a free‑body diagram?</strong> It shows all the forces acting <em>directly on</em> a chosen object, represented as vectors from a point.</p>
+    <p><strong>Two critical points:</strong></p>
+    <ol>
+        <li><strong>Only forces acting directly on the object should be included.</strong> Forces that the object exerts on other objects are <em>not</em> drawn.</li>
+        <li><strong>Indicate the direction of velocity</strong> (if known) beside the FBD. This helps you choose coordinate axes and decide the sign of forces when applying Newton’s 2nd law. The direction of acceleration is not always the same as velocity, but defining axes consistently avoids sign errors.</li>
+    </ol>
+    <p><strong>Common forces:</strong> weight (vertically down), normal reaction (⊥ to surface), tension (along string), friction (opposes motion/tendency).</p>
+</div>
+<div class="exam-tip">
+    📌 <strong>Example:</strong> A box being pushed to the right on a rough floor. FBD includes weight, normal, applied force (right), friction (left). Velocity is to the right → choose +x to the right. Then ΣF<sub>x</sub> = F<sub>app</sub> – f = ma.
+</div>
+
+<hr>
+
+<h2>🧠 3. Newton's Laws of Motion</h2>
+
+<h3>3.1 Newton's First Law – Law of Inertia</h3>
+<div class="equation-box">
+    <p class="equation">An object remains at rest, or continues to move with constant velocity, unless acted upon by a net external force.</p>
+</div>
+<p><strong>Implications:</strong></p>
+<ul>
+    <li>If F<sub>net</sub> = 0, a = 0 (constant velocity, including rest).</li>
+    <li>Inertia: resistance to change in motion; mass measures inertia.</li>
+    <li>Real‑life examples: coin on cardboard, passenger lurching forward when car brakes.</li>
+</ul>
+
+<h3>3.2 Newton's Second Law – F = ma</h3>
+<div class="equation-box">
+    <p class="equation">F<sub>net</sub> = m a</p>
+    <p>Net force (vector sum of all forces) = mass × acceleration. Direction of a is same as F<sub>net</sub>.</p>
+</div>
+<p><strong>Key points:</strong></p>
+<ul>
+    <li>Unit: 1 N = 1 kg·m/s².</li>
+    <li>For problems: choose axes, resolve forces, write ΣF<sub>x</sub> = ma<sub>x</sub>, ΣF<sub>y</sub> = ma<sub>y</sub>.</li>
+    <li>Constant net force → constant acceleration.</li>
+</ul>
+
+<h3>3.3 Newton's Third Law – Action & Reaction</h3>
+<div class="equation-box">
+    <p class="equation">If object A exerts a force on object B, then B exerts an equal and opposite force on A.</p>
+    <p>Forces act on <strong>different objects</strong>, same magnitude, opposite direction.</p>
+</div>
+<div class="warning">
+    ⚠️ Common misconception: Action‑reaction pairs do <strong>not</strong> cancel because they act on different bodies. E.g., weight (Earth on block) and normal (table on block) are <em>not</em> an action‑reaction pair.
+</div>
+
+<h3>Example (Class Work 9 / 2003 CE Q12)</h3>
+<p>Child sitting on chair: action‑reaction pair is <strong>child pushes chair down</strong> and <strong>chair pushes child up</strong> (normal reaction). Weight of child and normal reaction act on the <em>same</em> body → they can balance each other when a = 0, but they are not action‑reaction.</p>
+
+<hr>
+
+<h2>🤔 4. Which Newton's Law to Use? – A Practical Guide</h2>
+<div class="color-section">
+    <p>Students often struggle to choose the correct law when explaining a scenario. Use this decision guide:</p>
+    <table>
+        <thead>
+            <tr><th>Situation / Question Focus</th><th>Primary Law(s)</th><th>Explanation / Key Phrase</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Object at rest or moving with constant velocity (including "uniform motion", "balanced forces")</td><td><strong>First Law</strong></td><td>"No net force → state of motion unchanged." Or "Forces are balanced."</td></tr>
+            <tr><td>Object accelerating (speeding up, slowing down, changing direction) – need to relate force to acceleration</td><td><strong>Second Law</strong></td><td>"Net force = mass × acceleration. The direction of acceleration is the same as the net force."</td></tr>
+            <tr><td>Two objects interacting – explaining why forces come in pairs, e.g., why a rocket moves forward, why a gun recoils, why a swimmer pushes water backward</td><td><strong>Third Law</strong></td><td>"Action and reaction forces act on different objects, equal in magnitude, opposite in direction."</td></tr>
+            <tr><td>Why a passenger lurches forward when car brakes</td><td><strong>First Law</strong></td><td>"The passenger continues moving forward due to inertia (no net force on passenger until seatbelt/seat exerts force)."</td></tr>
+            <tr><td>Why a box slides to a stop on a rough surface</td><td><strong>Second Law</strong> (or First Law + friction)</td><td>"Friction provides a net force opposite to motion, causing deceleration (negative acceleration)."</td></tr>
+            <tr><td>Why a helicopter can hover (or a balloon stays up)</td><td><strong>Third Law</strong> + <strong>First Law</strong></td><td>"Downward thrust on air → upward reaction force on helicopter. When this equals weight, net force = 0 → hover."</td></tr>
+            <tr><td>Why objects of different masses fall with same acceleration (in vacuum)</td><td><strong>Second Law</strong> (and independence of mass)</td><td>"Weight = mg, net force = mg, so a = g, independent of mass."</td></tr>
+            <tr><td>Explaining why a scale reading changes in a lift</td><td><strong>Second Law</strong></td><td>"Apparent weight = normal reaction. ΣF = ma gives R – mg = ma → R = m(g+a)."</td></tr>
+        </tbody>
+    </table>
+    <p><strong>General rule:</strong> Use the <strong>First Law</strong> to explain why motion <em>doesn't</em> change; use the <strong>Second Law</strong> to <em>calculate</em> or explain changes in motion; use the <strong>Third Law</strong> when describing interactions between two objects.</p>
+</div>
+
+<hr>
+
+<h2>🧩 5. Applications – Solving Problems</h2>
+
+<h3>5.1 Uniform Motion (a = 0) → F<sub>net</sub> = 0</h3>
+<p>Example (Class Work 13 / 1998 CE Q6): Car towed at constant speed 8 m/s, friction 500 N. Since a = 0, net force = 0 → tension = friction = 500 N.</p>
+
+<h3>5.2 Non‑uniform Motion (a ≠ 0)</h3>
+<p><strong>Horizontal rough surface</strong> (Class Work 15): Block 1 kg, F = 5 N, a = 2 m/s². F<sub>net</sub> = ma = 2 N → friction = F – F<sub>net</sub> = 5 – 2 = 3 N.</p>
+<p><strong>Vertical motion / lift problems</strong> (apparent weight):</p>
+<table>
+    <thead><tr><th>Situation</th><th>Apparent weight (R)</th><th>Relation</th></tr></thead>
+    <tbody>
+        <tr><td>At rest or constant velocity</td><td>mg</td><td>R = mg</td></tr>
+        <tr><td>Accelerating upward</td><td>&gt; mg</td><td>R = m(g + a)</td></tr>
+        <tr><td>Accelerating downward</td><td>&lt; mg</td><td>R = m(g – a)</td></tr>
+        <tr><td>Free fall (a = g)</td><td>0</td><td>weightlessness</td></tr>
+    </tbody>
+</table>
+<div class="exam-tip">
+    ✅ Past paper (2002/II/7): man 80 kg, scale reads 600 N → R = 600 N, mg = 784 N → net force = 600 – 784 = –184 N → a = –184/80 = –2.3 m/s² (downward). So statement (3) correct.
+</div>
+
+<h3>5.3 Connected Bodies (Atwood machine, horizontal string)</h3>
+<p><strong>Horizontal smooth table</strong> (Class Work 23 / 1992 CE Q9): Two blocks (2 kg, 3 kg) connected, force 2 N on 2 kg block. Find acceleration and tension.<br>
+System: F<sub>net</sub> = 2 N, total mass = 5 kg → a = 0.4 m/s². For 3 kg block: T = m a = 3×0.4 = 1.2 N. (Past paper 1992/II/9 answer: 1.2 N)</p>
+
+<p><strong>Two blocks with forces in opposite directions</strong> (2008/II/5): equal mass, 10 N left on A, 4 N right on B, smooth. Find tension.<br>
+Let common acceleration a. For A: T – 10 = m a; for B: 4 – T = m a. Subtract: (T–10) – (4–T) = 0 → 2T –14 = 0 → T = 7 N.</p>
+
+<h3>5.4 Pulley Systems (vertical)</h3>
+<p>Two masses m₁ and m₂ (m₁ > m₂) over frictionless pulley. Acceleration a = (m₁ – m₂)g / (m₁ + m₂), tension T = (2 m₁ m₂ g)/(m₁ + m₂).</p>
+<div class="equation-box">
+    <p class="equation">a = (m₁ - m₂)g / (m₁ + m₂)</p>
+</div>
+
+<hr>
+
+<h2>⛰️ 6. Inclined Planes</h2>
+<p>For a block on an incline at angle θ (smooth):</p>
+<ul>
+    <li>Component of weight parallel to plane: <strong>mg sinθ</strong></li>
+    <li>Normal reaction: <strong>N = mg cosθ</strong></li>
+    <li>If rough and moving, friction f = μN (μ = coefficient of friction).</li>
+</ul>
+<div class="color-section">
+    <strong>Key equations:</strong><br>
+    - Net force down plane (no friction): F<sub>net</sub> = mg sinθ → a = g sinθ.<br>
+    - Net force up plane with applied force F (parallel): F – mg sinθ – f = ma.<br>
+    - Equilibrium (rest or constant velocity): net force = 0.
+</div>
+
+<h3>Example (Class Work 38 / 2002 CE Q6)</h3>
+<p>Block 0.5 kg slides down rough 30° incline with a = 3 m/s². Find friction.<br>
+mg sinθ = 0.5×9.81×sin30° ≈ 2.45 N. F<sub>net</sub> = m a = 1.5 N.<br>
+F<sub>net</sub> = mg sinθ – f → 1.5 = 2.45 – f → f = 0.95 N ≈ 1 N. (Matches 2002/II/6)</p>
+
+<h3>Example (Class Work 41 / 2021 DSE style)</h3>
+<p>Block slides down 30° incline at uniform speed → net force = 0 → friction = mg sin30° = 0.5 mg. Statement (2) correct.</p>
+
+<hr>
+
+<h2>🔁 7. Vector Addition & Resolution</h2>
+<h3>7.1 Resultant of forces</h3>
+<p>Graphical (tip-to-tail) or algebraic (component method). For equilibrium, sum of forces = 0.</p>
+<div class="equation-box">
+    <p class="equation">Resultant R = √(ΣF<sub>x</sub>² + ΣF<sub>y</sub>²)</p>
+</div>
+
+<h3>Example (2000/II/6):</h3>
+<p>Three forces: F₁, F₂, 10 N at angles. Object in equilibrium. Use ΣF<sub>x</sub> = 0, ΣF<sub>y</sub> = 0. Solve for F₁, F₂.</p>
+
+<h3>7.2 Tension in symmetrical strings</h3>
+<p>Midpoint of rope with weight W, angle 2θ between two halves (i.e., each half makes angle θ with horizontal). Vertical equilibrium: 2T sinθ = W → T = W/(2 sinθ).</p>
+<div class="exam-tip">
+    📌 Past paper (1999/II/5): T‑shirt weight 2 N, ∠ACB = 150°, so each half makes 15° with horizontal? Actually angle with vertical is 75°. Use 2T cos75° = W → T = 2/(2 cos75°) ≈ 3.86 N. (Answer C)
+</div>
+
+<hr>
+
+<h2>📊 8. Past Paper Question Highlights (with short solutions)</h2>
+<table>
+    <thead><tr><th>Year/Q#</th><th>Topic</th><th>Quick solution</th></tr></thead>
+    <tbody>
+        <tr><td>1991/II/2</td><td>Two blocks, smooth, 12 N on A</td><td>a = 12/(2m); force on A by B = m a = 6 N left → B</td></tr>
+        <tr><td>1992/II/9</td><td>Horizontal string, 2N on 2kg</td><td>a = 2/5 = 0.4, T = 3×0.4 = 1.2 N → D</td></tr>
+        <tr><td>1998/II/6</td><td>Constant velocity towed car</td><td>T = friction = 500 N → B</td></tr>
+        <tr><td>2003/II/8</td><td>Child in accelerating car</td><td>Resultant force = m√(a²+g²) = 10×√(9+96.2) ≈ 104 N → C</td></tr>
+        <tr><td>2005/II/30</td><td>Lift apparent weight</td><td>R₁ = R₂ (constant speed), R₃ > R₁ (upward acc) → B</td></tr>
+        <tr><td>2008/II/5</td><td>Two forces opposite directions</td><td>Solve: T = 7 N → C</td></tr>
+        <tr><td>2013/II/12 (MC style)</td><td>Bullet through block</td><td>v² = u² + 2as → a = (150²–300²)/(2×0.06) = –5.625×10⁵ m/s², F = m a = 0.05×5.625e5 = 28125 N</td></tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2>🧪 9. Experimental Skills</h2>
+<ul>
+    <li><strong>Newton’s second law experiment:</strong> friction‑compensated runway (slope to cancel friction). Trolley pulled by weights, measure a using ticker‑tape / light gates. Plot a vs F, slope = 1/m.</li>
+    <li><strong>Effect of mass:</strong> Keep net force constant, vary total mass, a ∝ 1/m.</li>
+</ul>
+<div class="exam-tip">
+    ✅ In past papers, they ask to identify which trials keep mass constant (to find a ∝ F) or force constant (to find a ∝ 1/m).
+</div>
+
+<hr>
+
+<h2>⚠️ 10. Common Mistakes & Exam Strategies</h2>
+<ul>
+    <li><strong>FBD mistakes:</strong> including forces that act on other objects, or forgetting to show velocity direction to guide sign convention.</li>
+    <li><strong>Action‑reaction confusion:</strong> weight and normal reaction are NOT action‑reaction (they act on same object).</li>
+    <li><strong>Sign convention:</strong> define positive direction (e.g., upward positive for lift, direction of motion for horizontal) before writing ΣF = ma.</li>
+    <li><strong>Friction direction:</strong> always opposes relative motion (or tendency). On an incline, when block slides down, friction up the plane.</li>
+    <li><strong>Units:</strong> ensure mass in kg, acceleration in m/s² → force in N.</li>
+</ul>
+
+<div class="color-section">
+    <strong>Quick Problem‑Solving Flow:</strong><br>
+    1. Draw FBD – include only forces on the object, and indicate velocity direction.<br>
+    2. Choose coordinate axes (usually x along acceleration).<br>
+    3. Write ΣF<sub>x</sub> = ma<sub>x</sub>, ΣF<sub>y</sub> = ma<sub>y</sub>.<br>
+    4. Solve equations algebraically.
+</div>
+
+<hr>
+
+<h2>📖 11. Formula Summary</h2>
+<div class="formula-card">
+    <strong>Newton's second law:</strong> F<sub>net</sub> = m a<br>
+    <strong>Weight:</strong> W = m g<br>
+    <strong>Inclined plane (smooth):</strong> a = g sinθ, N = mg cosθ<br>
+    <strong>Pulley (Atwood):</strong> a = (m₁ – m₂)g/(m₁ + m₂), T = (2m₁m₂g)/(m₁+m₂)<br>
+    <strong>Apparent weight (lift):</strong> R = m(g ± a) (upward +, downward –)<br>
+    <strong>Resolution:</strong> F<sub>x</sub> = F cosθ, F<sub>y</sub> = F sinθ
+</div>
+
+<hr>
+
+<footer>
+    <strong>⚠️ Note:</strong> This summary covers Newton's Laws of Motion (Mechanics). For kinematics, projectile motion, work-energy, momentum – refer to separate revision guides. Practice all past paper questions from 1990–2023 for full mastery.
+</footer>
+
+</body>
+</html>

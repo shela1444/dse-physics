@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKDSE Physics - Description of Motion (Kinematics) Summary</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            font-size: 11pt;
+            line-height: 1.5;
+            margin: 2cm;
+            color: #1e2a3a;
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #1e466e;
+            border-bottom: 3px solid #2c7da0;
+            padding-bottom: 12px;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #1f6392;
+            border-left: 5px solid #2c7da0;
+            padding-left: 12px;
+            margin: 25px 0 15px 0;
+            background: #f0f7fc;
+            border-radius: 0 8px 8px 0;
+        }
+        h3 {
+            color: #1e6f5c;
+            margin: 18px 0 10px 0;
+            border-bottom: 1px dashed #9bc2d4;
+            padding-bottom: 4px;
+        }
+        .equation-box {
+            background-color: #eef4ff;
+            border: 2px solid #2c7da0;
+            border-radius: 12px;
+            padding: 12px 18px;
+            margin: 15px 0;
+            text-align: center;
+            font-size: 12pt;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .equation {
+            font-family: 'Courier New', 'Times New Roman', monospace;
+            font-weight: 600;
+            font-size: 13pt;
+            color: #004070;
+        }
+        .key-point {
+            background-color: #fff8e7;
+            border-left: 4px solid #f4b942;
+            padding: 10px 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        .exam-tip {
+            background-color: #e0f7e8;
+            border-left: 4px solid #2e7d64;
+            padding: 10px 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        .warning {
+            background-color: #ffe6e5;
+            border-left: 4px solid #c7362b;
+            padding: 10px 14px;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 18px 0;
+            font-size: 10.5pt;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+        th, td {
+            border: 1px solid #bdd3e6;
+            padding: 8px 10px;
+            vertical-align: top;
+        }
+        th {
+            background-color: #2c7da0;
+            color: white;
+            font-weight: 600;
+        }
+        .page-break {
+            page-break-before: always;
+        }
+        .color-section {
+            background-color: #eef4fa;
+            border-radius: 14px;
+            padding: 12px 18px;
+            margin: 20px 0;
+            border: 1px solid #bbd4e9;
+        }
+        .formula-card {
+            background: #f9fafc;
+            border-radius: 12px;
+            padding: 10px;
+            margin: 10px 0;
+            border-left: 5px solid #2c7da0;
+        }
+        @media print {
+            body { margin: 1.2cm; }
+            .page-break { page-break-before: always; }
+        }
+        footer {
+            text-align: center;
+            font-size: 9pt;
+            color: #5e7e8c;
+            margin-top: 30px;
+            border-top: 1px solid #cbdbe2;
+            padding-top: 12px;
+        }
+        .badge {
+            background-color: #1f6392;
+            color: white;
+            border-radius: 20px;
+            padding: 2px 10px;
+            font-size: 9pt;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .graph-note {
+            font-family: monospace;
+            background: #f8f9fa;
+            padding: 8px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📐 Description of Motion – Kinematics Revision</h1>
+<p style="text-align: center;"><strong>HKDSE Physics (Compulsory Part – Mechanics)</strong><br>
+Based on syllabus & past paper trends (1990–2023) | Scalars, vectors, graphs, suvat, free fall</p>
+<hr>
+
+<h2>📌 1. Scalar vs Vector Quantities</h2>
+<div class="key-point">
+    <strong>Scalar:</strong> magnitude only. Examples: distance, speed, mass, time, energy, temperature.<br>
+    <strong>Vector:</strong> magnitude + direction. Examples: displacement, velocity, acceleration, force, momentum.
+</div>
+<table>
+    <thead><tr><th>Quantity</th><th>Type</th><th>Remarks</th></tr></thead>
+    <tbody>
+        <tr><td>Distance</td><td>Scalar</td><td>Total path length</td></tr>
+        <tr><td>Displacement</td><td>Vector</td><td>Straight‑line separation from start to end</td></tr>
+        <tr><td>Speed</td><td>Scalar</td><td>distance/time</td></tr>
+        <tr><td>Velocity</td><td>Vector</td><td>displacement/time</td></tr>
+        <tr><td>Acceleration</td><td>Vector</td><td>rate of change of velocity</td></tr>
+    </tbody>
+</table>
+<div class="exam-tip">
+    ✅ Past paper common: “Which is not a vector?” – potential energy, work, kinetic energy are scalars. (e.g. 1991/II/1, 1997/II/4, 2000/II/1)
+</div>
+
+<hr>
+
+<h2>📏 2. Distance, Displacement & Average Speed/Velocity</h2>
+<div class="equation-box">
+    <p class="equation">Average speed = total distance / total time</p>
+    <p class="equation">Average velocity = total displacement / total time</p>
+</div>
+<div class="color-section">
+    <strong>Example (Class Work 2 / 1999 CE Q1):</strong> A man walks A→B (120 m, 30 s) then runs backwards B→C (100 m, 20 s).<br>
+    Total distance = 120+100 = 220 m, total time = 50 s → average speed = 4.4 m/s.<br>
+    Displacement: from A to C = 120 – 100 = 20 m → average velocity = 20/50 = 0.4 m/s.
+</div>
+<div class="exam-tip">
+    ⚠️ Distinguish between <strong>average speed</strong> (scalar) and <strong>average velocity</strong> (vector). Many students forget to compute net displacement.
+</div>
+
+<hr>
+
+<h2>📈 3. Motion Graphs – s‑t, v‑t, a‑t</h2>
+<h3>3.1 Displacement–time (s‑t) graph</h3>
+<ul>
+    <li><strong>Slope = velocity</strong> (steeper → faster)</li>
+    <li>Horizontal line → at rest</li>
+    <li>Intersection → objects meet (same position)</li>
+    <li>Curved line → changing velocity (acceleration)</li>
+</ul>
+
+<h3>3.2 Velocity–time (v‑t) graph</h3>
+<ul>
+    <li><strong>Slope = acceleration</strong></li>
+    <li><strong>Area under graph = displacement</strong> (signed area = net displacement; total area = distance)</li>
+    <li>Crossing time axis → direction change</li>
+    <li>Intersection of two v‑t graphs → equal velocities (not meeting point)</li>
+</ul>
+
+<h3>3.3 Acceleration–time (a‑t) graph</h3>
+<ul>
+    <li>Area under a‑t graph = change in velocity</li>
+    <li>Constant acceleration → horizontal line</li>
+</ul>
+
+<div class="key-point">
+    <strong>Typical transformation:</strong> s‑t (parabola) → v‑t (straight line) → a‑t (horizontal). Uniform acceleration → s ∝ t².
+</div>
+
+<h3>Worked Example (Class Work 14 / 2011 CE style)</h3>
+<p>From v‑t graph: area under graph gives displacement. For a dog: 0–1 s acceleration = slope = (5–0)/1 = 5 m/s²; 1–4.5 s constant velocity; 4.5–5.5 s deceleration. Distance = area = (½×1×5) + (3.5×5) + (½×1×5) = 2.5 + 17.5 + 2.5 = 22.5 m.</p>
+
+<hr>
+
+<h2>🧮 4. Equations of Uniformly Accelerated Motion (suvat)</h2>
+<div class="equation-box">
+    <p class="equation">v = u + a t</p>
+    <p class="equation">s = u t + ½ a t²</p>
+    <p class="equation">v² = u² + 2 a s</p>
+    <p class="equation">s = ½ (u + v) t</p>
+    <p><strong>u</strong> = initial velocity, <strong>v</strong> = final velocity, <strong>a</strong> = acceleration, <strong>t</strong> = time, <strong>s</strong> = displacement</p>
+</div>
+<div class="exam-tip">
+    ✅ Always use consistent sign convention. For upward positive, a = –g (if g = 9.81 m/s² downward).<br>
+    📌 Common questions: stopping distance (v=0), take‑off distance, free fall.
+</div>
+
+<h3>Example (Class Work 25 / 2003 CE Q4)</h3>
+<p>Plane starts from rest, a = 2 m/s², take‑off speed = 60 m/s. Find minimum distance.<br>
+v² = u² + 2as → 60² = 0 + 2×2×s → s = 3600/4 = <strong>900 m</strong>.</p>
+
+<h3>Example (Class Work 24 / 2007 CE Q1)</h3>
+<p>Bicycle 100 m in 9.77 s from rest → s = ½ a t² → 100 = ½ a (9.77)² → a ≈ 2.10 m/s².</p>
+
+<hr>
+
+<h2>⬇️ 5. Vertical Motion under Gravity</h2>
+<div class="color-section">
+    <p>Near Earth’s surface, all objects fall with constant acceleration <strong>g = 9.81 m/s² downward</strong> (air resistance neglected).</p>
+    <ul>
+        <li>Acceleration is constant throughout the motion (upward and downward).</li>
+        <li>At highest point: v = 0, a = –g (still 9.81 m/s² downward).</li>
+        <li>Time up = time down for same level.</li>
+        <li>Return speed = initial speed (magnitude), opposite direction.</li>
+        <li>Motion independent of mass (Galileo’s experiment).</li>
+    </ul>
+</div>
+
+<h3>Typical past paper: free fall from rest</h3>
+<div class="equation-box">
+    For free fall from rest: s = ½ g t², v = g t, v² = 2 g s.
+</div>
+
+<h3>Example (Class Work 31 / 2008 CE Q1)</h3>
+<p>Fish jumps to max height 0.5 m. Speed at launch? v² = u² + 2as, at top v=0 → 0 = u² – 2g(0.5) → u = √(9.81) ≈ 3.13 m/s.</p>
+
+<h3>Example (Class Work 33 / 2013 DSE Q8)</h3>
+<p>Particle released from rest, XY : YZ = 9:16. Let XY = 9k, YZ = 16k, total 25k. Time for XY: 9k = ½ g t₁² → t₁ = √(18k/g). Time for XZ: 25k = ½ g (t₁+t₂)² → t₁+t₂ = √(50k/g). Thus t₂ = √(50k/g) – √(18k/g). Ratio t₁:t₂ = √18 : (√50 – √18) = 3√2 : (5√2 – 3√2) = 3:2. So t₁:t₂ = 3:2.</p>
+
+<div class="exam-tip">
+    ⚠️ <strong>Common mistake:</strong> saying acceleration is zero at top. For projectile under gravity, acceleration is always g downward.
+</div>
+
+<hr>
+
+<h2>📊 6. Graph Interpretation – Past Paper Highlights</h2>
+<table>
+    <thead><tr><th>Graph type</th><th>What slope represents</th><th>What area represents</th></tr></thead>
+    <tbody>
+        <tr><td>displacement‑time</td><td>velocity</td><td>—</td></tr>
+        <tr><td>velocity‑time</td><td>acceleration</td><td>displacement</td></tr>
+        <tr><td>acceleration‑time</td><td>—</td><td>change in velocity</td></tr>
+    </tbody>
+</table>
+
+<h3>Example (1998/II/4 & 2003/II/1)</h3>
+<p>Given v‑t graph, the shaded area = displacement. Acceleration is slope. Direction change when v crosses time axis.</p>
+
+<h3>Example (1995/II/8)</h3>
+<p>v‑t graph first 3 s: distance = area under graph (trapezium) = ½×(2+4)×3 = 9 m? Wait, typical area calculation – always check units.</p>
+
+<div class="key-point">
+    <strong>Past paper classic:</strong> v² vs s graph (e.g. 1990/II/1, 2007/II/33). From v² = u² + 2as, slope = 2a. So acceleration = slope/2.
+</div>
+
+<hr>
+
+<h2>🎯 7. Additional Problem-Solving Strategies</h2>
+<div class="formula-card">
+    <strong>Reaction time + braking distance:</strong> total stopping distance = thinking distance (constant speed × reaction time) + braking distance (using v² = u² + 2as).
+</div>
+<div class="exam-tip">
+    📌 For two‑part journeys (e.g. 2005/II/1‑2): first part constant speed (reaction), second part uniform deceleration. Read graph carefully.
+</div>
+
+<h3>Example (Class Work 15 / 1992 CE style)</h3>
+<p>Car initial 10 m/s, reaction time 0.8 s → thinking distance = 10×0.8 = 8 m. Braking to rest in 1.7 s (from graph) → deceleration a = (0–10)/1.7 = –5.88 m/s², braking distance = area under v‑t triangle = ½×10×1.7 = 8.5 m. Total = 16.5 m. If obstacle 20 m away → safe.</p>
+
+<hr>
+
+<h2>🧪 8. Experimental Determination of g</h2>
+<ul>
+    <li>Free‑fall apparatus / ticker‑timer / light gates.</li>
+    <li>Measure distance travelled in successive equal time intervals: distances increase as 1:3:5:… for uniform acceleration from rest.</li>
+    <li>v‑t graph slope → g ≈ 9.81 m/s².</li>
+</ul>
+
+<h2>📖 9. Quick Formula Reference Card</h2>
+<div class="color-section">
+    <strong>Uniform acceleration:</strong><br>
+    v = u + at<br>
+    s = ut + ½at²<br>
+    v² = u² + 2as<br>
+    s = ½(u+v)t<br>
+    <br>
+    <strong>Free fall (from rest):</strong><br>
+    s = ½gt², v = gt, v² = 2gs<br>
+    <br>
+    <strong>Graph links:</strong><br>
+    Slope(s‑t) = v, Slope(v‑t) = a, Area(v‑t) = s, Area(a‑t) = Δv
+</div>
+
+<hr>
+
+<h2>⚠️ 10. Common Pitfalls in Exams</h2>
+<ul>
+    <li>Confusing distance with displacement (especially in vector questions).</li>
+    <li>Forgetting sign convention in vertical motion (upward positive → a = –g).</li>
+    <li>Assuming v‑t intersection means meeting – it only means same velocity.</li>
+    <li>Using wrong suvat equation when acceleration not constant.</li>
+    <li>Not converting units (km/h to m/s – divide by 3.6).</li>
+</ul>
+
+<div class="exam-tip">
+    ✅ <strong>Exam strategy for Paper 1A (MC):</strong> Sketch graphs, label axes, use area/slope shortcuts. For Section B, show clear steps, define positive direction, and state formulas.
+</div>
+
+<hr>
+
+<h2>📌 11. Selected Past Paper Questions (with brief solutions)</h2>
+<h3>Q1 (1990/II/1)</h3>
+<p>v² vs s graph: slope = 2a → from graph, slope = (16–0)/(4–0)=4 → 2a=4 → a=2 m/s² → <strong>Answer C</strong>.</p>
+
+<h3>Q2 (1992/II/4)</h3>
+<p>Velocity‑time graph for stone thrown upwards, reaches sea after 18 s. Height of cliff = area under v‑t graph (consider sign). Typically area above axis minus area below = net displacement = –height of cliff (downward). Use graph values to compute.</p>
+
+<h3>Q3 (2000/II/3)</h3>
+<p>Racing car: 0 to 100 km/h in 3.2 s. Convert 100 km/h = 27.78 m/s → a = (27.78)/3.2 ≈ 8.68 m/s² → <strong>Answer B</strong>.</p>
+
+<h3>Q4 (2003/II/3)</h3>
+<p>Car on circular path, radius 30 m, returns to A after 15 s. Distance = circumference = 2π×30 = 188.5 m → average speed = 188.5/15 ≈ 12.6 m/s → <strong>Answer D</strong>.</p>
+
+<h3>Q5 (2007/II/33)</h3>
+<p>v² vs s graph: slope = 2a → from graph, slope = (4–0)/(2–0)=2 → 2a=2 → a=1 m/s² → <strong>Answer B</strong>.</p>
+
+<h3>Q6 (2012 DSE 1A Q7)</h3>
+<p>Bouncing ball (perfectly elastic): velocity‑time graph alternates between positive and negative slopes (linear segments), displacement‑time graph is parabolic arches. Correct option: (2) and (4) (v‑t with constant slopes, s‑t symmetric).</p>
+
+<footer>
+    <strong>⚠️ Note:</strong> This summary covers kinematics (scalars/vectors, graphs, suvat, free fall). For further practice, solve all past paper MC and structured questions (1990–2023) focusing on motion graphs and vertical motion.<br>
+    Prepared based on HKDSE Physics curriculum & lecture notes “M1 - Description of Motion”.
+</footer>
+
+</body>
+</html>
