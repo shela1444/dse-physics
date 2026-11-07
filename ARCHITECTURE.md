@@ -2,20 +2,49 @@
 
 ## Purpose
 
-A small revision-break site for HKDSE Physics students. The homepage presents topic cards; each card links separately to the topic summary and to a ten-question true/false quiz.
+A small revision-break site for HKDSE Physics students. The Concept Check homepage presents topic cards; each card links separately to a topic summary and a ten-question true/false quiz.
 
 The current topics are:
 
 - Kinematics
 - Force and Motion
 
-The page is designed so more topics can be added without changing the layout structure.
+The site is deployed beneath the `concept-check/` path so additional sections can be added to the repository later.
 
-## Files
+## Deployment layout
 
-### `index.html`
+```text
+dse-physics/
+├── .nojekyll
+├── ARCHITECTURE.md
+├── index.html                    # redirects to concept-check/
+└── concept-check/
+    ├── index.html                # "Take 5 minutes break!" homepage
+    ├── RS_HKDSE_M_Mechanics_TF_Quiz.html
+    ├── RS_HKDSE_M_Kinematics.html
+    └── RS_HKDSE_M_Force and Motion.html
+```
 
-The homepage. It contains:
+`.nojekyll` remains at the repository root so GitHub Pages serves the files without Jekyll processing.
+
+The root `index.html` is a redirect entry point. The actual homepage lives in `concept-check/`.
+
+## Live URLs
+
+| Page | URL |
+|---|---|
+| Root redirect | `https://shela1444.github.io/dse-physics/` |
+| Concept Check homepage | `https://shela1444.github.io/dse-physics/concept-check/` |
+| Kinematics quiz | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics` |
+| Force and Motion quiz | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force` |
+| Kinematics summary | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Kinematics.html` |
+| Force and Motion summary | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Force%20and%20Motion.html` |
+
+## Concept Check homepage
+
+### `concept-check/index.html`
+
+The homepage contains:
 
 - the title **“Take 5 minutes break!”**
 - a responsive topic grid
@@ -23,15 +52,11 @@ The homepage. It contains:
 - a Summary link and a Quiz link on each card
 - a future-topics note
 
-### `RS_HKDSE_M_Mechanics_TF_Quiz.html`
-
-The shared quiz engine. It contains both topic question sets and renders only the selected topic.
-
-## Topic routing
+### Topic routing
 
 The quiz reads its topic from the URL:
 
-| Topic | URL |
+| Topic | Quiz URL suffix |
 |---|---|
 | Kinematics | `RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics` |
 | Force and Motion | `RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force` |
@@ -57,6 +82,8 @@ Each topic card has two links:
 Summary → existing topic revision summary
 Quiz    → RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=<topic-id>
 ```
+
+Because both the homepage and the linked files live in `concept-check/`, all links remain relative and continue to work after deployment.
 
 Current links:
 
@@ -135,15 +162,20 @@ Each topic must provide exactly ten questions with a five-true / five-false bala
 
 1. Add the topic metadata to `TOPICS`.
 2. Add a ten-question array to `QUESTION_BANK`.
-3. Add a topic card to `index.html` with a Summary link and a quiz link using the new `?topic=` value.
+3. Add a topic card to `concept-check/index.html` with a Summary link and a quiz link using the new `?topic=` value.
 4. Verify the ten-question and five-true / five-false constraints.
+
+## Adding another site section
+
+Create a sibling directory at the repository root and add its own `index.html`. Update the root redirect or replace it with a hub page when multiple sections are ready.
 
 ## Validation
 
-- Homepage title is exactly **“Take 5 minutes break!”**
+- Root URL redirects to `concept-check/`.
+- Concept Check homepage title is exactly **“Take 5 minutes break!”**
 - Both topic quiz URLs render ten questions.
 - Each topic has five TRUE and five FALSE answers.
-- Both summaries and both quiz links resolve.
+- Both summaries and both quiz links resolve under `/concept-check/`.
 - Progress, scoring, results, review, and retry work for both topic modes.
 - The combined 20-question quiz is not linked from the homepage.
 - Desktop and narrow-screen layouts checked.
