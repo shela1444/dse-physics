@@ -414,9 +414,15 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="auth.css">
 </head>
 <body>
     <div class="shell">
+        <div class="home-topbar">
+            <span class="home-brand">Concept Check</span>
+            <div class="account-slot" data-account-bar></div>
+        </div>
+
         <header class="hero">
             <p class="eyebrow">HKDSE Physics &middot; Revision Break</p>
             <h1>Take <span>5 minutes</span> break!</h1>
@@ -469,6 +475,7 @@
                             <li>suvat</li>
                             <li>Free fall</li>
                         </ul>
+                        <p class="signin-note">Sign in required to start the quiz.</p>
 
                         <div class="card-actions">
                             <a class="btn btn-primary" href="RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics">
@@ -505,6 +512,7 @@
                             <li>Free-body diagrams</li>
                             <li>Lifts</li>
                         </ul>
+                        <p class="signin-note">Sign in required to start the quiz.</p>
 
                         <div class="card-actions">
                             <a class="btn btn-primary" href="RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force">
@@ -519,11 +527,29 @@
 
                 <p class="future-note">More topics will be added here later.</p>
             </section>
+
+            <section class="progress-panel" id="progress-panel" aria-labelledby="progress-title">
+                <div class="progress-heading">
+                    <div>
+                        <h2 id="progress-title">Your progress</h2>
+                        <p id="progress-subtitle">Only account-synced attempts are shown here.</p>
+                    </div>
+                </div>
+                <div id="progress-content">
+                    <p class="progress-loading">Checking your account progress&hellip;</p>
+                </div>
+                <p class="progress-note">Only account-synced attempts appear here. Sign in before starting a quiz to save a result.</p>
+            </section>
         </main>
 
         <footer class="site-footer">
             HKDSE Physics &middot; Quick Revision &middot; Take a short break, then get back to it.
         </footer>
     </div>
+
+    <script src="vendor/supabase-js.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth-client.js"></script>
+    <script src="progress.js"></script>
 </body>
 </html>

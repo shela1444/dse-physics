@@ -63,7 +63,9 @@
 
         .top-nav {
             display: flex;
-            justify-content: flex-start;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
             margin-bottom: 10px;
         }
 
@@ -902,11 +904,13 @@
             }
         }
     </style>
+    <link rel="stylesheet" href="auth.css">
 </head>
 <body>
     <div class="shell">
         <nav class="top-nav" aria-label="Site navigation">
             <a class="back-link" href="index.html"><span aria-hidden="true">&larr;</span> All topics</a>
+            <div class="account-slot" data-account-bar></div>
         </nav>
 
         <header class="hero">
@@ -950,7 +954,7 @@
                 </p>
 
                 <div class="start-action">
-                    <button type="button" class="btn btn-primary" id="start-btn">Start Kinematics quiz &rarr;</button>
+                    <button type="button" class="btn btn-primary" id="start-btn" disabled>Checking sign-in&hellip;</button>
                 </div>
             </section>
 
@@ -1025,6 +1029,11 @@
 
                 <div class="topic-results single-topic" id="topic-results" aria-label="Score by topic"></div>
 
+                <div class="save-status" id="save-status" aria-live="polite" hidden>
+                    <span id="save-status-text"></span>
+                    <button type="button" class="save-retry" id="save-retry-btn" hidden>Retry</button>
+                </div>
+
                 <section class="review-section" aria-labelledby="review-heading">
                     <div class="review-header">
                         <h3 id="review-heading">Review your misses</h3>
@@ -1046,6 +1055,9 @@
         </footer>
     </div>
 
+    <script src="vendor/supabase-js.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth-client.js"></script>
     <script>
         const QUESTION_BANK = {
             kinematics: [
@@ -1245,8 +1257,12 @@
             index: 0,
             answers: [],
             selected: null,
-            answered: false
+            answered: false,
+            attemptId: null,
+            currentAttempt: null
         };
+
+        let authContext = null;
 
         const els = {
             startScreen: document.getElementById("start-screen"),
@@ -1285,7 +1301,10 @@
             reviewHeading: document.getElementById("review-heading"),
             reviewDescription: document.getElementById("review-description"),
             reviewList: document.getElementById("review-list"),
-            retryBtn: document.getElementById("retry-btn")
+            retryBtn: document.getElementById("retry-btn"),
+            saveStatus: document.getElementById("save-status"),
+            saveStatusText: document.getElementById("save-status-text"),
+            saveRetryBtn: document.getElementById("save-retry-btn")
         };
 
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -1436,6 +1455,63 @@
             return { total, score, percent, topicScores };
         }
 
+        function createAttemptId() {
+            if (window.crypto && typeof window.crypto.randomUUID === "function") {
+                return window.crypto.randomUUID();
+            }
+            return "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (character) => {
+                const random = Math.floor(Math.random() * 16);
+                const value = character === "x" ? random : (random & 0x3) | 0x8;
+                return value.toString(16);
+            });
+        }
+
+        function setSaveStatus(message, mode) {
+            els.saveStatus.hidden = false;
+            els.saveStatus.classList.remove("is-saving", "is-saved", "is-error");
+            els.saveStatus.classList.add("is-" + mode);
+            els.saveStatusText.textContent = message;
+            els.saveRetryBtn.hidden = mode !== "error";
+        }
+
+        async function persistAttempt(attempt) {
+            setSaveStatus("Saving progress...", "saving");
+            try {
+                const { error } = await ConceptCheckAuth.client
+                    .from("concept_check_attempts")
+                    .insert(attempt);
+
+                if (error && error.code !== "23505") throw error;
+                setSaveStatus("Progress saved to your account.", "saved");
+            } catch (error) {
+                setSaveStatus("Progress could not be saved. Check your connection and retry.", "error");
+            }
+        }
+
+        async function saveAttempt(results) {
+            if (!authContext) {
+                setSaveStatus("Sign in required to save progress.", "error");
+                return;
+            }
+
+            const attempt = {
+                id: state.attemptId,
+                class_id: authContext.classId,
+                user_id: authContext.user.id,
+                topic: activeTopic,
+                score: results.score,
+                total: results.total,
+                answers: state.answers.map((answer) => ({
+                    questionId: answer.question.id,
+                    selected: answer.selected,
+                    correct: answer.correct
+                }))
+            };
+
+            state.currentAttempt = attempt;
+            await persistAttempt(attempt);
+        }
+
         function getResultsMessage(percent) {
             if (percent === 100) {
                 return "Perfect score. You identified every misconception correctly.";
@@ -1558,6 +1634,7 @@
             renderTopicResults(results.topicScores);
             renderReview();
             showScreen("results");
+            saveAttempt(results);
 
             requestAnimationFrame(() => {
                 els.resultsHeading.focus({ preventScroll: true });
@@ -1565,11 +1642,31 @@
         }
 
         function startQuiz() {
+            if (!authContext) return;
+
             state.index = 0;
             state.answers = [];
             state.selected = null;
             state.answered = false;
+            state.attemptId = createAttemptId();
+            state.currentAttempt = null;
+            els.saveStatus.hidden = true;
+            els.saveRetryBtn.hidden = true;
             renderQuestion();
+        }
+
+        async function initQuizAuth() {
+            try {
+                const context = await ConceptCheckAuth.requireStudent(window.location.pathname + window.location.search);
+                if (!context) return;
+
+                authContext = context;
+                els.startBtn.disabled = false;
+                els.startBtn.textContent = "Start " + ACTIVE_TOPIC.label + " quiz \u2192";
+            } catch (error) {
+                console.error(error);
+                els.startBtn.textContent = "Sign-in unavailable";
+            }
         }
 
         applyTopicUI();
@@ -1577,6 +1674,11 @@
         els.startBtn.addEventListener("click", startQuiz);
         els.retryBtn.addEventListener("click", startQuiz);
         els.nextBtn.addEventListener("click", nextQuestion);
+        els.saveRetryBtn.addEventListener("click", () => {
+            if (state.currentAttempt) {
+                persistAttempt(state.currentAttempt);
+            }
+        });
 
         els.answerButtons.forEach((button) => {
             button.addEventListener("click", () => {
@@ -1608,6 +1710,8 @@
                 nextQuestion();
             }
         });
+
+        initQuizAuth();
     </script>
 </body>
 </html>

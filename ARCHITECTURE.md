@@ -1,182 +1,168 @@
-# HKDSE Physics Revision Break — Architecture
+# HKDSE Physics Concept Check — Architecture
 
 ## Purpose
 
-A small revision-break site for HKDSE Physics students. The Concept Check homepage presents topic cards; each card links separately to a topic summary and a ten-question true/false quiz.
+A Class B revision site for HKDSE Physics. The homepage links to topic summaries and ten-question true/false quizzes. Authentication is required before a quiz can start, and completed quiz attempts are saved to Supabase for the signed-in student.
 
-The current topics are:
+## Live paths
 
-- Kinematics
-- Force and Motion
-
-The site is deployed beneath the `concept-check/` path so additional sections can be added to the repository later.
+| Page | URL |
+|---|---|
+| Root redirect | `https://shela1444.github.io/dse-physics/` |
+| Concept Check homepage | `https://shela1444.github.io/dse-physics/concept-check/` |
+| Login | `https://shela1444.github.io/dse-physics/concept-check/login.html` |
+| Teacher dashboard | `https://shela1444.github.io/dse-physics/concept-check/teacher.html` |
+| Kinematics quiz | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics` |
+| Force and Motion quiz | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force` |
 
 ## Deployment layout
 
 ```text
 dse-physics/
 ├── .nojekyll
+├── .gitignore
 ├── ARCHITECTURE.md
-├── index.html                    # redirects to concept-check/
-└── concept-check/
-    ├── index.html                # "Take 5 minutes break!" homepage
-    ├── RS_HKDSE_M_Mechanics_TF_Quiz.html
-    ├── RS_HKDSE_M_Kinematics.html
-    └── RS_HKDSE_M_Force and Motion.html
+├── index.html                          # redirects to concept-check/
+├── concept-check/
+│   ├── index.html                      # "Take 5 minutes break!" homepage
+│   ├── login.html
+│   ├── teacher.html
+│   ├── auth.css
+│   ├── auth-client.js
+│   ├── progress.js
+│   ├── teacher.js
+│   ├── login.js
+│   ├── supabase-config.js
+│   ├── vendor/
+│   │   └── supabase-js.min.js
+│   ├── templates/
+│   │   └── students-template.csv
+│   ├── RS_HKDSE_M_Mechanics_TF_Quiz.html
+│   ├── RS_HKDSE_M_Kinematics.html
+│   └── RS_HKDSE_M_Force and Motion.html
+└── supabase/
+    ├── config.toml
+    ├── bootstrap_teacher.sql
+    ├── migrations/
+    │   └── 20261112000000_concept_check.sql
+    └── functions/
+        └── concept-check-admin/
+            └── index.ts
 ```
 
-`.nojekyll` remains at the repository root so GitHub Pages serves the files without Jekyll processing.
+## Authentication model
 
-The root `index.html` is a redirect entry point. The actual homepage lives in `concept-check/`.
+Supabase Auth is used with teacher-issued accounts. Public sign-ups and anonymous sign-ins are disabled.
 
-## Live URLs
+### Student login
 
-| Page | URL |
-|---|---|
-| Root redirect | `https://shela1444.github.io/dse-physics/` |
-| Concept Check homepage | `https://shela1444.github.io/dse-physics/concept-check/` |
-| Kinematics quiz | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics` |
-| Force and Motion quiz | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force` |
-| Kinematics summary | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Kinematics.html` |
-| Force and Motion summary | `https://shela1444.github.io/dse-physics/concept-check/RS_HKDSE_M_Force%20and%20Motion.html` |
-
-## Concept Check homepage
-
-### `concept-check/index.html`
-
-The homepage contains:
-
-- the title **“Take 5 minutes break!”**
-- a responsive topic grid
-- one card per topic
-- a Summary link and a Quiz link on each card
-- a future-topics note
-
-### Topic routing
-
-The quiz reads its topic from the URL:
-
-| Topic | Quiz URL suffix |
-|---|---|
-| Kinematics | `RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics` |
-| Force and Motion | `RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force` |
-
-The question bank is stored as two separate arrays:
-
-```js
-const QUESTION_BANK = {
-  kinematics: [ /* 10 questions */ ],
-  force: [ /* 10 questions */ ]
-};
-```
-
-`?topic=kinematics` uses only the Kinematics array. `?topic=force` uses only the Force and Motion array. The combined 20-question quiz is not exposed through the homepage.
-
-If no valid topic is supplied, the quiz defaults to Kinematics so the page still works when opened directly.
-
-## Homepage link contract
-
-Each topic card has two links:
+Class code + username + password, mapped to a hidden synthetic email:
 
 ```text
-Summary → existing topic revision summary
-Quiz    → RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=<topic-id>
+<class-code>.<username>@students.conceptcheck.example
 ```
 
-Because both the homepage and the linked files live in `concept-check/`, all links remain relative and continue to work after deployment.
+### Teacher login
 
-Current links:
-
-| Topic | Summary | Quiz |
-|---|---|---|
-| Kinematics | `RS_HKDSE_M_Kinematics.html` | `RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=kinematics` |
-| Force and Motion | `RS_HKDSE_M_Force%20and%20Motion.html` | `RS_HKDSE_M_Mechanics_TF_Quiz.html?topic=force` |
-
-## Quiz runtime structure
+Teacher username `mswu` + password, mapped to:
 
 ```text
-HTML
-├── All topics navigation
-├── Topic-specific hero
-├── Start screen
-├── Quiz screen
-│   ├── topic badge
-│   ├── ten-question progress bar
-│   ├── question card
-│   ├── TRUE / FALSE choices
-│   ├── instant feedback panel
-│   └── next-question action
-└── Results screen
-    ├── score out of 10
-    ├── selected-topic score card
-    ├── missed-question review
-    ├── All topics link
-    └── retry action
+mswu@staff.conceptcheck.example
 ```
 
-## State model
+Synthetic addresses are never used for email delivery. Accounts are created through the teacher dashboard and the secure Edge Function.
 
-All quiz state is kept in memory:
+## Quiz access
 
-```js
-{
-  screen: "start",
-  index: 0,
-  answers: [],
-  selected: null,
-  answered: false
-}
+- Homepage and summaries are public.
+- A quiz requires an authenticated student.
+- Signed-out users are redirected to `login.html` with a `next` parameter preserving the quiz topic.
+- Teachers are redirected to `teacher.html`.
+- Guest attempts, anonymous auth, and local guest progress do not exist.
+
+## Data model
+
+- `concept_check_profiles`
+- `concept_check_classes`
+- `concept_check_memberships`
+- `concept_check_attempts`
+- `concept_check_student_progress` view
+
+Every completed quiz by a signed-in student creates one attempt row containing:
+
+- attempt UUID
+- class ID
+- student ID
+- topic
+- score
+- total
+- per-question answers as JSONB
+- completion timestamp
+
+The progress panel and teacher dashboard read only account-synced attempts.
+
+## Row Level Security
+
+- Students read their own profile, memberships, attempts, and progress.
+- Students insert only attempts for themselves in a class where they are a student.
+- Teachers read student profiles, memberships, and attempts only for classes where they have a teacher membership.
+- Anonymous users have no access.
+- Classes, memberships, and accounts are written through the service-role Edge Function, never directly by the browser.
+- The service-role key is stored only in Supabase Edge Function secrets.
+
+## Account-management Edge Function
+
+`concept-check-admin` validates the caller's teacher JWT and supports:
+
+- `create_class`
+- `bulk_create_students`
+- `reset_password`
+
+It never logs or returns passwords. Passwords are hashed by Supabase Auth.
+
+## Teacher dashboard
+
+- Teacher-only page.
+- Create classes and generate class codes.
+- Import students from a local CSV.
+- Reset student passwords.
+- View account-synced class progress.
+
+CSV format:
+
+```csv
+display_name,username,default_password
 ```
 
-No data is persisted between sessions.
+The CSV is read locally, sent over HTTPS to the Edge Function, and never committed to the repository.
 
-## Question contract
+## Static configuration
 
-Every question has the same shape:
+`concept-check/supabase-config.js` contains:
 
-```js
-{
-  id: "K1",
-  topic: "kinematics",
-  statement: "…",
-  answer: false,
-  explanation: "…",
-  source: "Kinematics §1"
-}
-```
+- Supabase project URL
+- publishable key
+- synthetic email domains
 
-Each topic must provide exactly ten questions with a five-true / five-false balance.
+The publishable key is public by design. RLS is the security boundary.
 
-## Interaction rules
+## Setup
 
-- Questions appear one at a time.
-- TRUE and FALSE choices are locked after an answer is selected.
-- Feedback appears immediately with the correct answer and an explanation.
-- Students control progression with a Next button.
-- Keyboard support: `1`/`T` for TRUE, `2`/`F` for FALSE, `Enter` for Next.
-- Results show a score out of 10, the selected-topic breakdown, and missed questions.
-- Retry restarts the same topic.
-- “All topics” returns to the homepage.
+See `supabase/README.md` for:
 
-## Adding a future topic
-
-1. Add the topic metadata to `TOPICS`.
-2. Add a ten-question array to `QUESTION_BANK`.
-3. Add a topic card to `concept-check/index.html` with a Summary link and a quiz link using the new `?topic=` value.
-4. Verify the ten-question and five-true / five-false constraints.
-
-## Adding another site section
-
-Create a sibling directory at the repository root and add its own `index.html`. Update the root redirect or replace it with a hub page when multiple sections are ready.
+- applying the migration
+- deploying the Edge Function
+- configuring Supabase Auth
+- creating Ms Wu's teacher account
+- running the teacher bootstrap SQL
 
 ## Validation
 
-- Root URL redirects to `concept-check/`.
-- Concept Check homepage title is exactly **“Take 5 minutes break!”**
-- Both topic quiz URLs render ten questions.
-- Each topic has five TRUE and five FALSE answers.
-- Both summaries and both quiz links resolve under `/concept-check/`.
-- Progress, scoring, results, review, and retry work for both topic modes.
-- The combined 20-question quiz is not linked from the homepage.
-- Desktop and narrow-screen layouts checked.
-- No external dependencies or network requests.
+- Signed-out quiz access redirects to login.
+- Login preserves the requested quiz topic.
+- Authenticated students can complete and save attempts.
+- Every completed attempt appears in the student's progress panel.
+- Teachers can log in, manage classes/accounts, and view class progress.
+- Student attempts are invisible to other students.
+- Teacher data is scoped to their classes.
+- No anonymous or guest progress exists.

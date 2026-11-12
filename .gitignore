@@ -1,0 +1,12 @@
+# Local Supabase secrets
+supabase/.env
+supabase/.env.*
+supabase/functions/.env
+supabase/functions/.env.*
+
+# Student credential exports must never be committed
+*.csv
+!concept-check/templates/*.csv
+
+# macOS
+.DS_Store

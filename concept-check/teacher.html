@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher dashboard | Concept Check</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-shell teacher-shell">
+        <div class="auth-topbar">
+            <a href="index.html">&larr; Concept Check</a>
+            <div data-account-bar></div>
+        </div>
+
+        <header class="teacher-heading">
+            <div>
+                <p class="eyebrow" style="margin-bottom: 5px; color: var(--blue-dark); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;">Teacher</p>
+                <h1>Class dashboard</h1>
+                <p>Manage classes and accounts, then review account-synced quiz progress.</p>
+            </div>
+        </header>
+
+        <p class="progress-loading" id="teacher-loading">Checking teacher account&hellip;</p>
+
+        <main id="teacher-content" hidden>
+            <div class="dashboard-grid">
+                <section class="dashboard-card" aria-labelledby="class-heading">
+                    <h2 id="class-heading">Class</h2>
+                    <p>Select a class, or create the first class for this site.</p>
+
+                    <div class="class-picker">
+                        <select id="class-select" aria-label="Select class"></select>
+                        <span class="class-code" id="class-code-wrap" hidden>
+                            <span id="class-code"></span>
+                            <button class="copy-button" id="copy-code-button" type="button">Copy</button>
+                        </span>
+                    </div>
+
+                    <form class="auth-form" id="create-class-form">
+                        <div class="auth-field">
+                            <label for="class-name">New class name</label>
+                            <input id="class-name" name="class-name" type="text" placeholder="e.g. Class B" maxlength="80" required>
+                        </div>
+                        <button class="auth-submit" id="create-class-button" type="submit">Create class</button>
+                    </form>
+                </section>
+
+                <section class="dashboard-card" aria-labelledby="import-heading">
+                    <h2 id="import-heading">Import students</h2>
+                    <p>CSV columns: <strong>display_name, username, default_password</strong>. The file is read locally and sent directly to the secure Edge Function.</p>
+
+                    <form id="import-form">
+                        <label class="file-drop">
+                            <span>Student CSV file</span>
+                            <input id="csv-file" type="file" accept=".csv,text/csv">
+                        </label>
+                        <p class="import-preview" id="import-preview">Choose a class and CSV file first.</p>
+                        <button class="auth-submit" id="import-button" type="submit" disabled>Import students</button>
+                    </form>
+                    <div class="import-results" id="import-results" aria-live="polite"></div>
+                </section>
+            </div>
+
+            <div class="dashboard-grid" style="margin-top: 16px;">
+                <section class="dashboard-card" aria-labelledby="reset-heading">
+                    <h2 id="reset-heading">Reset student password</h2>
+                    <p>Set a new default password for a student in the selected class.</p>
+                    <form class="auth-form" id="reset-password-form">
+                        <div class="auth-field">
+                            <label for="reset-student">Student</label>
+                            <select id="reset-student" required></select>
+                        </div>
+                        <div class="auth-field">
+                            <label for="reset-password">New default password</label>
+                            <input id="reset-password" type="text" autocomplete="new-password" minlength="8" maxlength="128" required>
+                        </div>
+                        <button class="auth-submit" id="reset-password-button" type="submit" disabled>Reset password</button>
+                    </form>
+                    <p class="import-preview" id="reset-status" aria-live="polite"></p>
+                </section>
+
+                <section class="dashboard-card" aria-labelledby="summary-heading">
+                    <h2 id="summary-heading">Class snapshot</h2>
+                    <p>Account-synced results only. Guest attempts do not exist in this system.</p>
+                    <div id="class-summary" class="progress-meta"></div>
+                </section>
+            </div>
+
+            <h2 class="dashboard-section-title">Class progress</h2>
+            <div class="dashboard-card">
+                <div id="progress-table-container">
+                    <p class="teacher-empty" id="progress-empty">Select a class to see student progress.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="vendor/supabase-js.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth-client.js"></script>
+    <script src="teacher.js"></script>
+</body>
+</html>

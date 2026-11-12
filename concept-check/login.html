@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign in | Take 5 minutes break!</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body class="auth-page">
+    <div class="auth-shell narrow">
+        <div class="auth-topbar">
+            <a href="index.html">&larr; Concept Check</a>
+            <span></span>
+        </div>
+
+        <main class="auth-card" aria-labelledby="login-heading">
+            <p class="eyebrow" style="margin-bottom: 7px; color: var(--blue-dark); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;">Concept Check</p>
+            <h1 id="login-heading">Sign in</h1>
+            <p class="auth-intro">Use the class code, username, and password provided by your teacher. A sign-in is required before starting a quiz.</p>
+
+            <div class="auth-tabs" role="tablist" aria-label="Account type">
+                <button class="auth-tab" type="button" role="tab" id="student-tab" aria-controls="student-panel" aria-selected="true">Student</button>
+                <button class="auth-tab" type="button" role="tab" id="teacher-tab" aria-controls="teacher-panel" aria-selected="false">Teacher</button>
+            </div>
+
+            <p class="auth-alert" id="auth-error" role="alert" hidden></p>
+
+            <section id="student-panel" role="tabpanel" aria-labelledby="student-tab">
+                <form class="auth-form" id="student-form">
+                    <div class="auth-field">
+                        <label for="class-code">Class code</label>
+                        <input id="class-code" name="class-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. PHY6B" required>
+                    </div>
+                    <div class="auth-field">
+                        <label for="student-username">Username</label>
+                        <input id="student-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. alice.chan" required>
+                    </div>
+                    <div class="auth-field">
+                        <label for="student-password">Password</label>
+                        <input id="student-password" name="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <button class="auth-submit" type="submit" id="student-submit">Sign in as student</button>
+                </form>
+            </section>
+
+            <section id="teacher-panel" role="tabpanel" aria-labelledby="teacher-tab" hidden>
+                <form class="auth-form" id="teacher-form">
+                    <div class="auth-field">
+                        <label for="teacher-username">Teacher username</label>
+                        <input id="teacher-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. mswu" required>
+                    </div>
+                    <div class="auth-field">
+                        <label for="teacher-password">Password</label>
+                        <input id="teacher-password" name="password" type="password" autocomplete="current-password" required>
+                    </div>
+                    <button class="auth-submit" type="submit" id="teacher-submit">Sign in as teacher</button>
+                </form>
+            </section>
+
+            <p class="auth-help">Accounts are created by the teacher. There is no public sign-up. If you have forgotten your password, ask your teacher to reset it.</p>
+        </main>
+    </div>
+
+    <script src="vendor/supabase-js.min.js"></script>
+    <script src="supabase-config.js"></script>
+    <script src="auth-client.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>

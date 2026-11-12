@@ -1,0 +1,4 @@
+project_id = "rtdhxxzxskkkciqughbr"
+
+[functions.concept-check-admin]
+verify_jwt = true
