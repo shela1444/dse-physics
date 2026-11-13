@@ -51,7 +51,7 @@ Password login is used. No email confirmation or magic link is required for teac
 In Authentication → Users → Add user:
 
 ```text
-Email: mswu@staff.conceptcheck.example
+Email: wjwu@home.npl.edu.hk
 Password: choose privately
 ```
 
@@ -61,7 +61,7 @@ Then run `bootstrap_teacher.sql` in the SQL Editor. It creates the teacher profi
 
 ```text
 Display name: Ms Wu
-Username: mswu
+Internal username: mswu
 Role: teacher
 ```
 
@@ -70,7 +70,7 @@ Role: teacher
 Ms Wu signs in through the Teacher tab with:
 
 ```text
-Username: mswu
+Email: wjwu@home.npl.edu.hk
 Password: the password set in Supabase
 ```
 

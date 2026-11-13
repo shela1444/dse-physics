@@ -1,5 +1,5 @@
 -- Run this after creating Ms Wu's Supabase Auth user:
---   email: mswu@staff.conceptcheck.example
+--   email: wjwu@home.npl.edu.hk
 --   password: set privately in the Supabase Dashboard
 --
 -- The account must already exist in Authentication > Users.
@@ -11,7 +11,7 @@ select
     'mswu',
     'teacher'
 from auth.users
-where lower(email) = 'mswu@staff.conceptcheck.example'
+where lower(email) = 'wjwu@home.npl.edu.hk'
 on conflict (id) do update
 set
     display_name = excluded.display_name,

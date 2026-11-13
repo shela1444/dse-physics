@@ -38,7 +38,7 @@
 
         if (!focusField) return;
         if (isTeacher) {
-            document.getElementById("teacher-username").focus();
+            document.getElementById("teacher-email").focus();
         } else {
             document.getElementById("class-code").focus();
         }
@@ -81,12 +81,12 @@
     els.teacherForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         showError("");
-        const username = document.getElementById("teacher-username").value;
+        const email = document.getElementById("teacher-email").value;
         const password = document.getElementById("teacher-password").value;
 
         setLoading(els.teacherSubmit, true, "Sign in as teacher");
         try {
-            await auth.signInTeacher({ username, password });
+            await auth.signInTeacher({ email, password });
             window.location.replace("teacher.html");
         } catch (error) {
             showError(error.message || "Could not sign in. Check your details and try again.");

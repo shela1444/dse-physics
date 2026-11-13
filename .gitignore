@@ -8,5 +8,8 @@ supabase/functions/.env.*
 *.csv
 !concept-check/templates/*.csv
 
+# Supabase CLI local state
+supabase/.temp/
+
 # macOS
 .DS_Store

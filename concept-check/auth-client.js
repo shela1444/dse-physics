@@ -33,10 +33,6 @@
             normalizeUsername(username) + "@" + config.studentEmailDomain;
     }
 
-    function teacherEmail(username) {
-        return normalizeUsername(username) + "@" + config.teacherEmailDomain;
-    }
-
     function currentPath() {
         return window.location.pathname + window.location.search + window.location.hash;
     }
@@ -179,19 +175,19 @@
         };
     }
 
-    async function signInTeacher({ username, password }) {
-        const user = normalizeUsername(username);
-        if (!user || !password) {
-            throw new Error("Enter the teacher username and password.");
+    async function signInTeacher({ email, password }) {
+        const address = String(email || "").trim().toLowerCase();
+        if (!address || !address.includes("@") || !password) {
+            throw new Error("Enter the teacher email and password.");
         }
 
         const { data, error } = await client.auth.signInWithPassword({
-            email: teacherEmail(user),
+            email: address,
             password
         });
 
         if (error || !data.user) {
-            throw new Error("Teacher username or password is incorrect.");
+            throw new Error("Teacher email or password is incorrect.");
         }
 
         let context;
@@ -353,7 +349,6 @@
         requireTeacher,
         activeClassFor,
         studentEmail,
-        teacherEmail,
         normalizeClassCode,
         normalizeUsername,
         safeNext,

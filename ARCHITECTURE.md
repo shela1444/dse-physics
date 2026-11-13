@@ -64,13 +64,9 @@ Class code + username + password, mapped to a hidden synthetic email:
 
 ### Teacher login
 
-Teacher username `mswu` + password, mapped to:
+Teacher email `wjwu@home.npl.edu.hk` + password. The internal class-membership username remains `mswu`.
 
-```text
-mswu@staff.conceptcheck.example
-```
-
-Synthetic addresses are never used for email delivery. Accounts are created through the teacher dashboard and the secure Edge Function.
+Student synthetic addresses are never used for email delivery. Student accounts are created through the teacher dashboard and the secure Edge Function. Ms Wu's teacher account is created once in Supabase Auth and bootstrapped with the teacher role.
 
 ## Quiz access
 
