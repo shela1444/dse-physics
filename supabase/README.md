@@ -76,6 +76,19 @@ Password: the password set in Supabase
 
 She can then create a class and upload a student CSV.
 
+## 7. Student login
+
+Students sign in with:
+
+```text
+Username
+Password
+```
+
+They do not enter a class code. Student usernames are globally unique.
+Class codes remain visible to the teacher for class organisation, but they
+are not used by students to sign in.
+
 ## Student CSV format
 
 ```csv

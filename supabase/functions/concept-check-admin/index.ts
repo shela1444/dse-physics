@@ -45,8 +45,8 @@ function makeClassCode(): string {
   return Array.from(bytes, (byte) => CLASS_CODE_ALPHABET[byte % CLASS_CODE_ALPHABET.length]).join("");
 }
 
-function studentEmail(classCode: string, username: string): string {
-  return `${classCode.toLowerCase()}.${username}@${STUDENT_EMAIL_DOMAIN}`;
+function studentEmail(username: string): string {
+  return `${username}@${STUDENT_EMAIL_DOMAIN}`;
 }
 
 Deno.serve(async (request) => {
@@ -175,7 +175,7 @@ Deno.serve(async (request) => {
 
       const { data: classRow, error: classError } = await admin
         .from("concept_check_classes")
-        .select("id, code")
+        .select("id")
         .eq("id", classId)
         .maybeSingle();
 
@@ -209,7 +209,7 @@ Deno.serve(async (request) => {
           continue;
         }
 
-        const email = studentEmail(classRow.code, username);
+        const email = studentEmail(username);
         const { data: createdUser, error: createError } = await admin.auth.admin.createUser({
           email,
           password,

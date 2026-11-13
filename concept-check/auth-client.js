@@ -20,17 +20,12 @@
     const ACTIVE_CLASS_PREFIX = "cc_active_class_";
     let initPromise = null;
 
-    function normalizeClassCode(value) {
-        return String(value || "").trim().toUpperCase().replace(/\s+/g, "");
-    }
-
     function normalizeUsername(value) {
         return String(value || "").trim().toLowerCase();
     }
 
-    function studentEmail(classCode, username) {
-        return normalizeClassCode(classCode).toLowerCase() + "." +
-            normalizeUsername(username) + "@" + config.studentEmailDomain;
+    function studentEmail(username) {
+        return normalizeUsername(username) + "@" + config.studentEmailDomain;
     }
 
     function currentPath() {
@@ -115,21 +110,20 @@
         return studentMemberships[0].class_id;
     }
 
-    async function signInStudent({ classCode, username, password }) {
-        const code = normalizeClassCode(classCode);
+    async function signInStudent({ username, password }) {
         const user = normalizeUsername(username);
 
-        if (!code || !user || !password) {
-            throw new Error("Enter your class code, username, and password.");
+        if (!user || !password) {
+            throw new Error("Enter your username and password.");
         }
 
         const { data, error } = await client.auth.signInWithPassword({
-            email: studentEmail(code, user),
+            email: studentEmail(user),
             password
         });
 
         if (error || !data.user) {
-            throw new Error("Class code, username, or password is incorrect.");
+            throw new Error("Username or password is incorrect.");
         }
 
         let context;
@@ -145,33 +139,18 @@
             throw new Error("This is not a student account. Use the teacher tab instead.");
         }
 
-        const { data: classRow, error: classError } = await client
-            .from("concept_check_classes")
-            .select("id, name, code")
-            .eq("code", code)
-            .maybeSingle();
+        const classId = activeClassFor(context);
 
-        if (classError || !classRow) {
+        if (!classId) {
             await client.auth.signOut();
-            throw new Error("Class code not found. Check the code from your teacher.");
+            throw new Error("This account is not enrolled in a class. Ask your teacher to add you.");
         }
 
-        const membership = context.memberships.find(
-            (item) => item.class_id === classRow.id && item.role === "student"
-        );
-
-        if (!membership) {
-            await client.auth.signOut();
-            throw new Error("This account is not enrolled in that class.");
-        }
-
-        localStorage.setItem(ACTIVE_CLASS_PREFIX + context.user.id, classRow.id);
         await renderAccountBars();
 
         return {
             ...context,
-            classId: classRow.id,
-            activeClass: classRow
+            classId
         };
     }
 
@@ -349,7 +328,6 @@
         requireTeacher,
         activeClassFor,
         studentEmail,
-        normalizeClassCode,
         normalizeUsername,
         safeNext,
         loginUrl,

@@ -56,11 +56,14 @@ Supabase Auth is used with teacher-issued accounts. Public sign-ups and anonymou
 
 ### Student login
 
-Class code + username + password, mapped to a hidden synthetic email:
+Username + password, mapped to a hidden synthetic email:
 
 ```text
-<class-code>.<username>@students.conceptcheck.example
+<username>@students.conceptcheck.example
 ```
+
+Student usernames are globally unique. Class codes remain internal to the
+teacher dashboard and are not used in the student login form.
 
 ### Teacher login
 
@@ -73,6 +76,7 @@ Student synthetic addresses are never used for email delivery. Student accounts 
 - Homepage and summaries are public.
 - A quiz requires an authenticated student.
 - Signed-out users are redirected to `login.html` with a `next` parameter preserving the quiz topic.
+- Student login uses username and password only.
 - Teachers are redirected to `teacher.html`.
 - Guest attempts, anonymous auth, and local guest progress do not exist.
 

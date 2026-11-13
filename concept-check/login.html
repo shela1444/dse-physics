@@ -16,7 +16,7 @@
         <main class="auth-card" aria-labelledby="login-heading">
             <p class="eyebrow" style="margin-bottom: 7px; color: var(--blue-dark); font-size: 0.72rem; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase;">Concept Check</p>
             <h1 id="login-heading">Sign in</h1>
-            <p class="auth-intro">Use the class code, username, and password provided by your teacher. A sign-in is required before starting a quiz.</p>
+            <p class="auth-intro">Use the username and password provided by your teacher. A sign-in is required before starting a quiz.</p>
 
             <div class="auth-tabs" role="tablist" aria-label="Account type">
                 <button class="auth-tab" type="button" role="tab" id="student-tab" aria-controls="student-panel" aria-selected="true">Student</button>
@@ -27,10 +27,6 @@
 
             <section id="student-panel" role="tabpanel" aria-labelledby="student-tab">
                 <form class="auth-form" id="student-form">
-                    <div class="auth-field">
-                        <label for="class-code">Class code</label>
-                        <input id="class-code" name="class-code" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="e.g. PHY6B" required>
-                    </div>
                     <div class="auth-field">
                         <label for="student-username">Username</label>
                         <input id="student-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="e.g. alice.chan" required>

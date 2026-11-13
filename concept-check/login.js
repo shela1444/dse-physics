@@ -40,7 +40,7 @@
         if (isTeacher) {
             document.getElementById("teacher-email").focus();
         } else {
-            document.getElementById("class-code").focus();
+            document.getElementById("student-username").focus();
         }
     }
 
@@ -64,13 +64,12 @@
     els.studentForm.addEventListener("submit", async (event) => {
         event.preventDefault();
         showError("");
-        const classCode = document.getElementById("class-code").value;
         const username = document.getElementById("student-username").value;
         const password = document.getElementById("student-password").value;
 
         setLoading(els.studentSubmit, true, "Sign in as student");
         try {
-            await auth.signInStudent({ classCode, username, password });
+            await auth.signInStudent({ username, password });
             redirectAfterStudentLogin();
         } catch (error) {
             showError(error.message || "Could not sign in. Check your details and try again.");
