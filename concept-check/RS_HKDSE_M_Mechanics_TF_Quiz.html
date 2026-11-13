@@ -170,7 +170,7 @@
 
         .stat-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             margin: 26px 0;
         }
@@ -942,10 +942,6 @@
                         <strong id="stat-topic">1</strong>
                         <span>topic</span>
                     </div>
-                    <div class="stat">
-                        <strong id="stat-format">5 + 5</strong>
-                        <span>true / false</span>
-                    </div>
                 </div>
 
                 <p class="start-note">
@@ -1276,7 +1272,6 @@
             startCopy: document.getElementById("start-copy"),
             statQuestions: document.getElementById("stat-questions"),
             statTopic: document.getElementById("stat-topic"),
-            statFormat: document.getElementById("stat-format"),
             summaryLink: document.getElementById("summary-link"),
             topicBadge: document.getElementById("topic-badge"),
             progressText: document.getElementById("progress-text"),
@@ -1310,9 +1305,6 @@
         const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
         function applyTopicUI() {
-            const trueCount = QUESTIONS.filter((question) => question.answer).length;
-            const falseCount = QUESTIONS.length - trueCount;
-
             document.title = ACTIVE_TOPIC.label + " True/False Quiz | Take 5 minutes break!";
             els.heroEyebrow.textContent = ACTIVE_TOPIC.eyebrow;
             els.heroCopy.textContent = ACTIVE_TOPIC.intro;
@@ -1321,7 +1313,6 @@
             els.startCopy.textContent = ACTIVE_TOPIC.startCopy;
             els.statQuestions.textContent = String(QUESTIONS.length);
             els.statTopic.textContent = "1";
-            els.statFormat.textContent = trueCount + " + " + falseCount;
             els.startBtn.textContent = "Start " + ACTIVE_TOPIC.label + " quiz \u2192";
             els.summaryLink.textContent = ACTIVE_TOPIC.summaryLabel;
             els.summaryLink.href = ACTIVE_TOPIC.summaryPath;
